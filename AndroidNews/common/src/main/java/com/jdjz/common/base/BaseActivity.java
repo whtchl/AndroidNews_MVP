@@ -12,11 +12,12 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 
+import com.jdjz.common.R;
 import com.jdjz.common.baseapp.*;
+import com.jdjz.common.commonutils.ToastUitl;
 
 /***************使用例子*********************/
 //1.mvp模式

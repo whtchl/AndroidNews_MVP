@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
-
+import android.support.multidex.MultiDex;
 /**
  * Created by tchl on 2016-10-27.
  */
@@ -24,5 +24,15 @@ public class BaseApplication extends Application {
     @Override
     public void onTerminate(){
         super.onTerminate();
+    }
+
+    /**
+     * 分包
+     * @param base
+     */
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 }
