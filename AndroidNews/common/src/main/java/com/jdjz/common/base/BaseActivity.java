@@ -17,7 +17,10 @@ import android.view.Window;
 
 import com.jdjz.common.R;
 import com.jdjz.common.baseapp.*;
+import com.jdjz.common.commonutils.TUtil;
 import com.jdjz.common.commonutils.ToastUitl;
+
+import butterknife.ButterKnife;
 
 /***************使用例子*********************/
 //1.mvp模式
@@ -62,6 +65,16 @@ public abstract class BaseActivity<T extends BasePresenter,E extends BaseModel> 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         doDeforeSecontentView();
+        setContentView(getLayoutId());
+        ButterKnife.bind(this);
+        mContext = this;
+        mPresenter = TUtil.getT(this,0);
+        mModel = TUtil.getT(this,0);
+        if(mPresenter !=null){
+            mPresenter.mContext = this;
+        }
+        this.initPresenter();
+        this.initView();
     }
 
     /*

@@ -1,8 +1,12 @@
 package com.jdjz.common.commonutils;
 
 import android.content.Context;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jdjz.common.R;
@@ -92,10 +96,22 @@ public class ToastUitl {
      * @return
      */
     public static Toast showToastWithImg(final String tvStr,final int imageResource){
-        if(toast2 == null){
+        if (toast2 == null) {
             toast2 = new Toast(BaseApplication.getAppContext());
         }
         View view = LayoutInflater.from(BaseApplication.getAppContext()).inflate(R.layout.toast_custom, null);
+        TextView tv = (TextView)view.findViewById(R.id.toast_custom_tv);
+        tv.setText(TextUtils.isEmpty(tvStr)?"":tvStr);
+        ImageView iv = (ImageView) view.findViewById(R.id.toast_custom_iv);
+        if(imageResource >0){
+            iv.setVisibility(View.VISIBLE);
+            iv.setImageResource(imageResource);
+        }else{
+            iv.setVisibility(View.GONE);
+        }
+        toast2.setView(view);
+        toast2.setGravity(Gravity.CENTER,0,0);
+        toast2.show();
+        return toast2;
     }
-
 }
