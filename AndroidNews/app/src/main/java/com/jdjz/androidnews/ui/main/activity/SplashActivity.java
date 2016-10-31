@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.jdjz.androidnews.R;
 import com.jdjz.common.base.*;
+import com.jdjz.common.commonutils.LogUtils;
 import com.jdjz.common.commonutils.ToastUitl;
 
 import butterknife.Bind;
@@ -54,7 +55,11 @@ public class SplashActivity  extends  BaseActivity{
 
             @Override
             public void onAnimationEnd(Animator animation) {
-              //  ToastUitl.showToastWithImg("End animator",0 );
+                //ToastUitl.showToastWithImg("End animator",R.drawable.ic_warm);
+                //ToastUitl.show("hello",2000);
+                LogUtils.logd("hello d");
+                LogUtils.loge("hello e");
+                LogUtils.logi("hello i");
             }
 
             @Override

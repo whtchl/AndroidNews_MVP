@@ -16,6 +16,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug{
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+        }
     }
 
     //设置虚拟机堆内存空间大小，避免在编译期间OOM
