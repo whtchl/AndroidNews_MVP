@@ -60,6 +60,8 @@ public class SplashActivity  extends  BaseActivity{
                 LogUtils.logd("hello d");
                 LogUtils.loge("hello e");
                 LogUtils.logi("hello i");
+                MainActivity.startAction(SplashActivity.this);
+                finish();
             }
 
             @Override
