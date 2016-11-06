@@ -75,7 +75,7 @@ public class RxBus {
     public void unregister(@NonNull Object tag){
         List<Subject> subjects = subjectMapper.get(tag);
         if(null != subjects){
-            subjectMappers.remove(tag);
+            subjectMapper.remove(tag);
         }
     }
 
