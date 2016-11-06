@@ -31,6 +31,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:design:23.+'
 
+    //rxjava and rxandroid
+    compile 'io.reactivex:rxjava:1.0.1'
+    compile 'io.reactivex:rxandroid:1.0.1'
+
     compile 'com.android.support:multidex:1.0.0'//分包
     compile 'com.jakewharton:butterknife:7.0.1'//view注解
     compile 'com.orhanobut:logger:1.13'//打印日志
