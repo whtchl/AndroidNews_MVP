@@ -38,11 +38,7 @@ public class MainActivity extends BaseActivity {
 
     private  NewsMainFragment newsMainFragment;
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
+
 
 
     @Override
@@ -56,9 +52,7 @@ public class MainActivity extends BaseActivity {
         tabLayout.setTabData(mTabEntities, this, R.id.tab_layout, mFragments);// tchl
         tabLayout.showDot(1);//tchl
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
     }
     /**
      * 入口

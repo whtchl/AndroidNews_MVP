@@ -6,4 +6,6 @@ package com.jdjz.androidnews.app;
 public class AppConstant {
 
     public static String NEWS_LIST_TO_TOP = "NEWS_LIST_TO_TOP";//列表返回顶部
+    /* 新闻*/
+    public static final String CHANNEL_MINE = "CHANNEL_MINE";
 }
