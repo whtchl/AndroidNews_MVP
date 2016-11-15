@@ -60,10 +60,11 @@ public abstract class BaseFragment<T extends BasePresenter,E extends BaseModel> 
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState ){
         if(rootView == null) {
             rootView = inflater.inflate(getLayoutResource(), container, false);
+            ButterKnife.bind(this, rootView);
         }
-        ButterKnife.bind(this, rootView);
+
         mPresenter = TUtil.getT(this, 0);
-        mModel = TUtil.getT(this, 0);
+        mModel = TUtil.getT(this,1);
         if (mPresenter != null) {
             mPresenter.mContext = this.getActivity();
         }

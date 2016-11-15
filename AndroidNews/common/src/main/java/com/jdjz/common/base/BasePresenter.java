@@ -2,6 +2,8 @@ package com.jdjz.common.base;
 
 import android.content.Context;
 
+import com.jdjz.common.baserx.RxManager;
+
 /**
  * des:基类 presenter
  * Created by tchl on 2016-10-27.

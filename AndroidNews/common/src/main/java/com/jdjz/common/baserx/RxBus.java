@@ -22,18 +22,19 @@ import rx.subjects.Subject;
  */
 public class RxBus {
     private static RxBus instance;
-    public static synchronized RxBus getInstance(){
-        if(null == instance){
+
+    public static synchronized RxBus getInstance() {
+        if (null == instance) {
             instance = new RxBus();
         }
         return instance;
     }
 
-    private RxBus(){
+    private RxBus() {
     }
 
     @SuppressWarnings("rawtypes")
-    private ConcurrentHashMap<Object,List<Subject>> subjectMapper = new ConcurrentHashMap<Object,List<Subject>>();
+    private ConcurrentHashMap<Object, List<Subject>> subjectMapper = new ConcurrentHashMap<Object, List<Subject>>();
 
     /**
      * 订阅事件源
@@ -42,14 +43,14 @@ public class RxBus {
      * @param mAction1
      * @return
      */
-    public RxBus OnEvent(Observable<?> mObservable,Action1<Object> mAction1){
-        mObservable.observeOn(AndroidSchedulers.mainThread()).subscribe(mAction1,new Action1<Throwable>(){
+    public RxBus OnEvent(Observable<?> mObservable, Action1<Object> mAction1) {
+        mObservable.observeOn(AndroidSchedulers.mainThread()).subscribe(mAction1, new Action1<Throwable>() {
             @Override
-            public void call(Throwable throwable){
+            public void call(Throwable throwable) {
                 throwable.printStackTrace();
             }
         });
-        return  getInstance();
+        return getInstance();
     }
 
     /**
@@ -59,22 +60,22 @@ public class RxBus {
      * @return
      */
     @SuppressWarnings("rawtypes")
-    public <T>Observable<T> register(@NonNull Object tag){
+    public <T> Observable<T> register(@NonNull Object tag) {
         List<Subject> subjectList = subjectMapper.get(tag);
-        if(null == subjectList){
+        if (null == subjectList) {
             subjectList = new ArrayList<Subject>();
-            subjectMapper.put(tag,subjectList);
+            subjectMapper.put(tag, subjectList);
         }
-        Subject<T,T> subject;
+        Subject<T, T> subject;
         subjectList.add(subject = PublishSubject.create());
-        LogUtils.logd("register "+tag+" size:"+subjectList.size());
+        LogUtils.logd("register " + tag + " size:" + subjectList.size());
         return subject;
     }
 
     @SuppressWarnings("rawtypes")
-    public void unregister(@NonNull Object tag){
+    public void unregister(@NonNull Object tag) {
         List<Subject> subjects = subjectMapper.get(tag);
-        if(null != subjects){
+        if (null != subjects) {
             subjectMapper.remove(tag);
         }
     }
@@ -96,7 +97,7 @@ public class RxBus {
             subjects.remove((Subject<?, ?>) observable);
             if (isEmpty(subjects)) {
                 subjectMapper.remove(tag);
-                LogUtils.logd("unregister"+ tag + "  size:" + subjects.size());
+                LogUtils.logd("unregister" + tag + "  size:" + subjects.size());
             }
         }
         return getInstance();
@@ -113,12 +114,12 @@ public class RxBus {
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
     public void post(@NonNull Object tag, @NonNull Object content) {
-        LogUtils.logd("post"+ "eventName: " + tag);
+        LogUtils.logd("post" + "eventName: " + tag);
         List<Subject> subjectList = subjectMapper.get(tag);
         if (!isEmpty(subjectList)) {
             for (Subject subject : subjectList) {
                 subject.onNext(content);
-                LogUtils.logd("onEvent"+ "eventName: " + tag);
+                LogUtils.logd("onEvent" + "eventName: " + tag);
             }
         }
     }
@@ -127,3 +128,4 @@ public class RxBus {
     public static boolean isEmpty(Collection<Subject> collection) {
         return null == collection || collection.isEmpty();
     }
+}

@@ -1,5 +1,6 @@
 package com.jdjz.androidnews.db;
 
+import com.jdjz.androidnews.R;
 import com.jdjz.androidnews.api.ApiConstants;
 import com.jdjz.androidnews.app.AppApplication;
 import com.jdjz.androidnews.bean.NewsChannelTable;
@@ -21,7 +22,7 @@ public class NewsChannelTableManager {
          List<String> channelId   =Arrays.asList(AppApplication.getAppContext().getResources().getStringArray(R.array.news_channel_id));
          ArrayList<NewsChannelTable> newsChannelTables = new ArrayList<>();
          for(int i=0;i<channelName.size();i++){
-             NewsChannelTable entity = new NewsChannelTable(channelName.get(i),channelId.get(i),ApiConstants.getType(channelId.get(i)),i<=5,false);
+             NewsChannelTable entity = new NewsChannelTable(channelName.get(i),channelId.get(i),ApiConstants.getType(channelId.get(i)),i<=5,i,false);
              newsChannelTables.add(entity);
          }
          return newsChannelTables;

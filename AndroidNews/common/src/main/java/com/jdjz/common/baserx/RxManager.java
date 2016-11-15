@@ -17,7 +17,7 @@ import rx.subscriptions.CompositeSubscription;
 public class RxManager {
     public RxBus mRxBus = RxBus.getInstance();
     //管理rxbus订阅
-    private Map<String, Observable<?>> mObervables = new HashMap<>();
+    private Map<String, Observable<?>> mObservables = new HashMap<>();
     /*管理Observables 和 Subscribers订阅*/
     private CompositeSubscription mCompositeSubscription = new CompositeSubscription();
 
@@ -28,7 +28,7 @@ public class RxManager {
      */
     public <T>void on(String eventName, Action1<T> action1){
         Observable<T> mObservable = mRxBus.register(eventName);
-        mObservable.put(eventName,mObservable);
+        mObservables.put(eventName,mObservable);
         /*订阅管理*/
         mCompositeSubscription.add(mObservable.observeOn(AndroidSchedulers.mainThread())
                            .subscribe(action1,new Action1<Throwable>(){
@@ -53,7 +53,7 @@ public class RxManager {
     * */
     public void clear(){
         mCompositeSubscription.unsubscribe();//取消所有订阅
-        for (Map.Entry<String, Observable<?>> entry:mObervables.entrySet()){
+        for (Map.Entry<String, Observable<?>> entry:mObservables.entrySet()){
             mRxBus.unregister(entry.getKey(),entry.getValue());//移除rxbux观察
         }
     }

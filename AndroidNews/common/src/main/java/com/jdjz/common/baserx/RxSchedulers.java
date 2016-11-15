@@ -1,7 +1,9 @@
 package com.jdjz.common.baserx;
 
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+
 
 /**
  * Created by tchl on 2016-11-11.
