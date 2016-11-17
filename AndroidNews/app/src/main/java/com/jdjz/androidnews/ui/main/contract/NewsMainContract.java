@@ -14,7 +14,7 @@ import rx.Observable;
  */
 public interface NewsMainContract {
     interface Model extends BaseModel{
-        Observable<List<NewsChannelTable>> loadMineNewsChannedls();
+        Observable<List<NewsChannelTable>> lodeMineNewsChannels();
     }
 
     interface View extends BaseView {

@@ -1,5 +1,7 @@
 package com.jdjz.androidnews.api;
 
+import com.jdjz.common.commonutils.LogUtils;
+
 /**
  * Created by tchl on 2016-11-11.
  */
@@ -133,12 +135,15 @@ public class ApiConstants {
     public static String getType(String id) {
         switch (id) {
             case HEADLINE_ID:
+                LogUtils.logd("getType: HEADLINE_TYPE");
                 return HEADLINE_TYPE;
             case HOUSE_ID:
+                LogUtils.logd("getType: HOUSE_ID");
                 return HOUSE_TYPE;
             default:
                 break;
         }
+        LogUtils.logd("getType: OTHER_TYPE");
         return OTHER_TYPE;
     }
 

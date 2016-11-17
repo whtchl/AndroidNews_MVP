@@ -74,7 +74,7 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter, NewsMainMo
 
     @Override
     public void returnMineNewsChannels(List<NewsChannelTable> newsChannelsMine) {
-/*        if (newsChannelsMine != null) {
+        if (newsChannelsMine != null) {
             List<String> channelNames = new ArrayList<>();
             List<Fragment> mNewsFragmentList = new ArrayList<>();
             for (int i = 0; i < newsChannelsMine.size(); i++) {
@@ -86,7 +86,7 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter, NewsMainMo
             tabs.setupWithViewPager(viewPager);
             MyUtils.dynamicSetTabLayoutMode(tabs);
             setPageChangeListener();
-        }*/
+        }
     }
 
     private void setPageChangeListener() {
