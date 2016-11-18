@@ -4,6 +4,7 @@ import com.jdjz.androidnews.app.AppConstant;
 import com.jdjz.androidnews.bean.NewsChannelTable;
 import com.jdjz.androidnews.ui.main.contract.NewsMainContract;
 import com.jdjz.common.baserx.RxSchedulers;
+import com.jdjz.common.baserx.RxSubscriber;
 import com.jdjz.common.commonutils.LogUtils;
 
 import java.util.List;
@@ -39,11 +40,18 @@ public class NewsMainPresenter extends  NewsMainContract.Presenter{
      */
     @Override
     public void lodeMineChannelsRequest() {
-        mRxManager.add(mModel.lodeMineNewsChannels().subscribe(new RxSchedulers<List <NewsChannelTable>>(mContext,false){
+        mRxManager.add(
+                mModel.lodeMineNewsChannels().subscribe
+                        (new RxSubscriber<List<NewsChannelTable>>(mContext,false){
             @Override
             protected void  _onNext(List<NewsChannelTable> newsChannelTables){
                 LogUtils.logd("lodeMineChannelsRequest onStart（）: thread id and name:"+Thread.currentThread().getId()+" , "+Thread.currentThread().getName());
                 mView.returnMineNewsChannels(newsChannelTables);
+            }
+
+            @Override
+            protected void _onError(String message) {
+
             }
         }));
 

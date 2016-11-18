@@ -30,7 +30,7 @@ public class RxManager {
         Observable<T> mObservable = mRxBus.register(eventName);
         mObservables.put(eventName,mObservable);
         /*订阅管理*/
-        mCompositeSubscription.add(mObservable.observeOn(AndroidSchedulers.mainThread())
+        mCompositeSubscripti    on.add(mObservable.observeOn(AndroidSchedulers.mainThread())
                            .subscribe(action1,new Action1<Throwable>(){
                                @Override
                                public  void call(Throwable throwable){

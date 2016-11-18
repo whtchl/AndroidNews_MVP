@@ -16,6 +16,7 @@ public abstract class BasePresenter<T,E> {
     public RxManager mRxManager;
 
     public void setVM(T v,E m){
+        mRxManager = new RxManager();
         this.mView = v;
         this.mModel = m;
         this.onStart();
