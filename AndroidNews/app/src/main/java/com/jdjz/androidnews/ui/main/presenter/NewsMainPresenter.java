@@ -31,6 +31,12 @@ public class NewsMainPresenter extends  NewsMainContract.Presenter{
         });*/
     }
 
+    /**
+     * -- new RxSubscriber<List<NewsChannelTable>>(mContext,false)  --》是个订阅者；
+     * -- subscribe(new RxSubscriber<List<NewsChannelTable>>(mContext,false) -->表示被观察者（observable）订阅（subscribe）的订阅者（RxSubscriber）
+     *   （这句话事件上应该理解为订阅者订阅了被观察者，但是和button 的意思一样要反正来理解）。
+     * -- lodeMineNewsChannels()执行这函数中的subscriber.onNext(newsChannelTableList)，然后这个onNext就执行了RxSubscriber(订阅者)的_onNext()
+     */
     @Override
     public void lodeMineChannelsRequest() {
         mRxManager.add(mModel.lodeMineNewsChannels().subscribe(new RxSchedulers<List <NewsChannelTable>>(mContext,false){

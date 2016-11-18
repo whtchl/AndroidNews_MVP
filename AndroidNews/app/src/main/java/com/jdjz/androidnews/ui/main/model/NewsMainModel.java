@@ -18,6 +18,12 @@ import rx.Subscriber;
  * Created by tchl on 2016-11-11.
  */
 public class NewsMainModel implements NewsMainContract.Model{
+
+    /**
+     * OnSubscribe--》  当Observable被订阅(subscribe) OnSubscribe接口的call方法会被执行。
+     * .compose(RxSchedulers.<List<NewsChannelTable>>io_main());  ->将一个observable转换为另外一个observable
+     * @return
+     */
     @Override
     public Observable<List<NewsChannelTable>> lodeMineNewsChannels() {
 
