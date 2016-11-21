@@ -1,6 +1,7 @@
 package com.jdjz.androidnews.ui.news.contract;
 
 import com.jdjz.androidnews.bean.NewsChannelTable;
+import com.jdjz.androidnews.bean.NewsSummary;
 import com.jdjz.common.base.BaseModel;
 import com.jdjz.common.base.BasePresenter;
 import com.jdjz.common.base.BaseView;
@@ -15,7 +16,7 @@ import rx.Observable;
 public interface NewsListContract {
     interface Model extends BaseModel {
         //请求获取新闻
-        Observable<List<NewsSummary>> getNewsListData(String type,final String id,int startPage);
+        Observable<List<NewsSummary>> getNewsListData(String type, final String id, int startPage);
     }
 
     interface View extends BaseView {

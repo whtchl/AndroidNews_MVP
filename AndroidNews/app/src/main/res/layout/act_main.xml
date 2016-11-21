@@ -19,12 +19,12 @@
         android:padding="0dp"
         android:layout_alignParentBottom="true"
         tl:tl_indicator_height="2dp"
-        tl:tl_iconHeight="20dp"
-        tl:tl_iconWidth="20dp"
+        tl:tl_iconHeight="25dp"
+        tl:tl_iconWidth="25dp"
         tl:tl_indicator_color="@color/blue"
         tl:tl_textSelectColor="@color/main_color"
         tl:tl_textUnselectColor="@color/light_gray"
         tl:tl_textsize="11sp"
-        tl:tl_underline_height="0dp" ></com.flyco.tablayout.CommonTabLayout>
+        tl:tl_underline_height="2dp" ></com.flyco.tablayout.CommonTabLayout>
 
 </RelativeLayout>

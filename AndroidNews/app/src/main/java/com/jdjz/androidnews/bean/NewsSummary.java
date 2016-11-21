@@ -433,5 +433,5 @@ public class NewsSummary implements Parcelable {
         public NewsSummary[] newArray(int size) {
             return new NewsSummary[size];
         }
-    }
+    };
 }
