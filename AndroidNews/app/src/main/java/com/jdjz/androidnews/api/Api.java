@@ -1,15 +1,19 @@
 package com.jdjz.androidnews.api;
 
+import android.support.annotation.NonNull;
 import android.util.SparseArray;
 
 import com.jdjz.common.base.BaseApplication;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.jdjz.common.commonutils.NetWorkUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
+import okhttp3.CacheControl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
@@ -27,7 +31,7 @@ public class Api {
     //连接时长，单位：毫秒
     public static final int CONNECT_TIME_OUT = 8000;
     public Retrofit retrofit;
-    //public ApiService movieService;
+    public ApiService movieService;
 
     private static SparseArray<Api> sRetrofitManager = new SparseArray<>(HostType.TYPE_COUNT);
 
@@ -67,19 +71,19 @@ public class Api {
     private static final String CACHE_CONTROL_AGE = "max-age=0";
 
     //构造方法私有
-    private Api(int hostType){
+    private Api(int hostType) {
         //open log
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         //缓存
-        File cacheFile = new File(BaseApplication.getAppContext().getCacheDir(),"cache");//
-        Cache cache = new Cache(cacheFile,1024*1024*100);
+        File cacheFile = new File(BaseApplication.getAppContext().getCacheDir(), "cache");//
+        Cache cache = new Cache(cacheFile, 1024 * 1024 * 100);
         //增加头部信息
         Interceptor headerInterceptor = new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request build = chain.request().newBuilder()
-                        .addHeader("Content-Type","application/json")
+                        .addHeader("Content-Type", "application/json")
                         .build();
                 return chain.proceed(build);
             }
@@ -87,7 +91,7 @@ public class Api {
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .readTimeout(READ_TIME_OUT, TimeUnit.MILLISECONDS)
-                .connectTimeout(CONNECT_TIME_OUT,TimeUnit.MILLISECONDS)
+                .connectTimeout(CONNECT_TIME_OUT, TimeUnit.MILLISECONDS)
                 .addInterceptor(mRewriteCacheControlInterceptor)
                 .addNetworkInterceptor(mRewriteCacheControlInterceptor)
                 .addInterceptor(headerInterceptor)
@@ -104,4 +108,60 @@ public class Api {
                 .build();
         movieService = retrofit.create(ApiService.class);
     }
+
+    /**
+     * @param hostType NETEASE_NEWS_VIDEO：1 （新闻，视频），GANK_GIRL_PHOTO：2（图片新闻）;
+     *                 EWS_DETAIL_HTML_PHOTO:3新闻详情html图片)
+     */
+    public static ApiService getDefault(int hostType) {
+        Api retrofitManager = sRetrofitManager.get(hostType);
+        if (retrofitManager == null) {
+            retrofitManager = new Api(hostType);
+            sRetrofitManager.put(hostType, retrofitManager);
+        }
+        return retrofitManager.movieService;
+    }
+
+
+    /**
+     * 根据网络状况获取缓存的策略
+     */
+    @NonNull
+    public static String getCacheControl() {
+        return NetWorkUtils.isNetConnected(BaseApplication.getAppContext()) ? CACHE_CONTROL_AGE : CACHE_CONTROL_CACHE;
+    }
+
+    /**
+     * 云端响应头拦截器，用来配置缓存策略
+     * Dangerous interceptor that rewrites the server's cache-control header.
+     */
+    private final Interceptor mRewriteCacheControlInterceptor = new Interceptor() {
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            Request request = chain.request();
+            if (!NetWorkUtils.isNetConnected(BaseApplication.getAppContext())) {
+                request = request.newBuilder()
+                        .cacheControl(CacheControl.FORCE_CACHE)
+                        .build();
+            }
+            Response originalResponse = chain.proceed(request);
+            if (NetWorkUtils. (BaseApplication.getAppContext())){
+                //有网的时候读接口上的@Headers里的配置，你可以在这里进行统一的设置
+                String cacheControl = request.cacheControl().toString();
+                return originalResponse.newBuilder()
+                        .header("Cache-Control", cacheControl)
+                        .removeHeader("Pragma")
+                        .build();
+            }
+
+            else
+
+            {
+                return originalResponse.newBuilder()
+                    .header("Cache-Control", "public, only-if-cached, max-stale=" + CACHE_STALE_SEC)
+                    .removeHeader("Pragma")
+                    .build();
+            }
+        }
+    };
 }
