@@ -37,6 +37,9 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.0.1'
     compile 'com.android.support:multidex:1.0.0'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+
+
+
     //分包
     compile 'com.jakewharton:butterknife:7.0.1'
     //view注解
@@ -46,4 +49,6 @@ dependencies {
     //菜单栏
     compile 'com.android.support:support-v4:23.+'
     compile 'com.google.code.gson:gson:2.8.0'
+    //cardview
+    compile 'com.android.support:cardview-v7:23.+'
 }

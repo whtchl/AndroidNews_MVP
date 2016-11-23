@@ -3,4 +3,7 @@
 
     <!--menu-->
     <string name="news">AndroidNews新闻</string>
+    <!-- 共享过度动画 -->
+    <string name="transition_photos">transition_animation_news_photos</string>
+
 </resources>
