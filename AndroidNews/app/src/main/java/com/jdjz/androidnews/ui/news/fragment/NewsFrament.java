@@ -1,17 +1,25 @@
 package com.jdjz.androidnews.ui.news.fragment;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.aspsine.irecyclerview.IRecyclerView;
 import com.aspsine.irecyclerview.OnLoadMoreListener;
+import com.aspsine.irecyclerview.OnRefreshListener;
+import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.jdjz.androidnews.R;
 import com.jdjz.androidnews.app.AppConstant;
 import com.jdjz.androidnews.bean.NewsSummary;
+import com.jdjz.androidnews.ui.news.adapter.NewListAdapter;
 import com.jdjz.androidnews.ui.news.contract.NewsListContract;
 import com.jdjz.androidnews.ui.news.model.NewsListModel;
 import com.jdjz.androidnews.ui.news.presenter.NewsListPresenter;
 import com.jdjz.common.base.BaseFragment;
+import com.jdjz.common.commonutils.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +31,7 @@ import rx.Observable;
  * des:新闻 Fragment
  * Created by tchl on 2016-11-21.
  */
-public class NewsFrament extends BaseFragment<NewsListPresenter,NewsListModel> implements NewsListContract.Model,onRefreshListener,OnLoadMoreListener {
+public class NewsFrament extends BaseFragment<NewsListPresenter,NewsListModel> implements NewsListContract.View,OnRefreshListener,OnLoadMoreListener {
     @Bind(R.id.irc)
     IRecyclerView irc;
 
@@ -55,19 +63,63 @@ public class NewsFrament extends BaseFragment<NewsListPresenter,NewsListModel> i
         irc.setOnRefreshListener(this);
         irc.setOnLoadMoreListener(this);
         //数据为空才重新发起请求
-        if(newListAdapter.getSzie()<=0){
+        if(newListAdapter.getSize()<=0){
             mStartPage = 0;
-            mPresenter.getNewsListDataRequest(mNewsType,mNewsId,mStatePage);
+            mPresenter.getNewsListDataRequest(mNewsType,mNewsId,mStartPage);
         }
     }
 
     @Override
-    public Observable<List<NewsSummary>> getNewsListData(String type, String id, int startPage) {
-        return null;
+    public void returnNewsListData(List<NewsSummary> newsSummaries){
+        if(newsSummaries !=null){
+            mStartPage +=20;
+            if(newListAdapter.getPageBean().isRefresh()){
+                irc.setRefreshing(false);
+                newListAdapter.replaceAll(newsSummaries);
+            }else{
+                if(newsSummaries.size()>0){
+                    irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
+                    newListAdapter.addAll(newsSummaries);
+                }else{
+                    irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onRefresh(){
+        newListAdapter.getPageBean().setRefresh(true);
+        mStartPage=0;
+        //发起请求
+        irc.setRefreshing(true);
+        mPresenter.getNewsListDataRequest(mNewsType,mNewsId,mStartPage);
     }
 
     @Override
     public void onLoadMore(View loadMoreView) {
+        newListAdapter.getPageBean().setRefresh(false);
+        //发起请求
+        irc.setLoadMoreStatus(LoadMoreFooterView.Status.LOADING);
+        mPresenter.getNewsListDataRequest(mNewsType,mNewsId,mStartPage);
+    }
+
+    @Override
+    public void ShowLoading(String title){
+        if(newListAdapter.getPageBean().isRefresh()){
+            //loadedTip.setLoadingTip(LoadingTip)
+            LogUtils.logd("show load tip");
+        }
+    }
+
+
+    @Override
+    public void stopLoading() {
+
+    }
+
+    @Override
+    public void showErrorTip(String msg) {
 
     }
 }

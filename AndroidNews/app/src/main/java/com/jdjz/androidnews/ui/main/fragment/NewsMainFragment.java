@@ -21,6 +21,7 @@ import com.jdjz.androidnews.ui.main.presenter.NewsMainPresenter;
 import com.jdjz.androidnews.utils.MyUtils;
 import com.jdjz.common.base.BaseFragment;
 import com.jdjz.common.base.BaseFragmentAdapter;
+import com.jdjz.common.commonutils.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +79,7 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter, NewsMainMo
             List<String> channelNames = new ArrayList<>();
             List<Fragment> mNewsFragmentList = new ArrayList<>();
             for (int i = 0; i < newsChannelsMine.size(); i++) {
+                LogUtils.logd("Channel Name:"+newsChannelsMine.get(i).getNewsChannelName());
                 channelNames.add(newsChannelsMine.get(i).getNewsChannelName());
                 mNewsFragmentList.add(createListFragments(newsChannelsMine.get(i)));
             }
