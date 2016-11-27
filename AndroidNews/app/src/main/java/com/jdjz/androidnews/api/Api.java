@@ -145,7 +145,7 @@ public class Api {
                         .build();
             }
             Response originalResponse = chain.proceed(request);
-            if (NetWorkUtils. (BaseApplication.getAppContext())){
+            if (NetWorkUtils.isNetConnected(BaseApplication.getAppContext())){
                 //有网的时候读接口上的@Headers里的配置，你可以在这里进行统一的设置
                 String cacheControl = request.cacheControl().toString();
                 return originalResponse.newBuilder()
@@ -153,9 +153,7 @@ public class Api {
                         .removeHeader("Pragma")
                         .build();
             }
-
             else
-
             {
                 return originalResponse.newBuilder()
                     .header("Cache-Control", "public, only-if-cached, max-stale=" + CACHE_STALE_SEC)

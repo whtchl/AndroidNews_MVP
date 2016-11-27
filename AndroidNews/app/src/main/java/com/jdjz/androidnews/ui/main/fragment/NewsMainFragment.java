@@ -18,6 +18,7 @@ import com.jdjz.androidnews.ui.main.activity.SimpleCardFragment;
 import com.jdjz.androidnews.ui.main.contract.NewsMainContract;
 import com.jdjz.androidnews.ui.main.model.NewsMainModel;
 import com.jdjz.androidnews.ui.main.presenter.NewsMainPresenter;
+import com.jdjz.androidnews.ui.news.fragment.NewsFrament;
 import com.jdjz.androidnews.utils.MyUtils;
 import com.jdjz.common.base.BaseFragment;
 import com.jdjz.common.base.BaseFragmentAdapter;
@@ -112,7 +113,7 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter, NewsMainMo
         ;
     }
 
-    private SimpleCardFragment createListFragments(NewsChannelTable newsChannel) {
+/*    private SimpleCardFragment createListFragments(NewsChannelTable newsChannel) {
         SimpleCardFragment fragment = new SimpleCardFragment();
         Bundle bundle = new Bundle();
         bundle.putString(AppConstant.NEWS_ID, newsChannel.getNewsChannelId());
@@ -120,7 +121,16 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter, NewsMainMo
         bundle.putInt(AppConstant.CHANNEL_POSITION, newsChannel.getNewsChannelIndex());
         fragment.setArguments(bundle);
         return fragment;
-    }
+    }*/
+private NewsFrament createListFragments(NewsChannelTable newsChannel) {
+    NewsFrament fragment = new NewsFrament();
+    Bundle bundle = new Bundle();
+    bundle.putString(AppConstant.NEWS_ID, newsChannel.getNewsChannelId());
+    bundle.putString(AppConstant.NEWS_TYPE, newsChannel.getNewsChannelType());
+    bundle.putInt(AppConstant.CHANNEL_POSITION, newsChannel.getNewsChannelIndex());
+    fragment.setArguments(bundle);
+    return fragment;
+}
 
     @Override
     public void showNetErrorTip() {

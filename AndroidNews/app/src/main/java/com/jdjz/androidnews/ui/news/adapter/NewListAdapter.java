@@ -3,11 +3,16 @@ package com.jdjz.androidnews.ui.news.adapter;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.aspsine.irecyclerview.universaladapter.ViewHolderHelper;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.MultiItemRecycleViewAdapter;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.MultiItemTypeSupport;
+import com.jdjz.androidnews.R;
+import com.jdjz.androidnews.app.AppApplication;
 import com.jdjz.androidnews.bean.NewsSummary;
+import com.jdjz.common.commonutils.DisplayUtil;
 import com.jdjz.common.commonutils.LogUtils;
 
 import java.util.List;
@@ -23,9 +28,9 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<NewsSummary> {
         super(context, datas, new MultiItemTypeSupport<NewsSummary>() {
             @Override
             public int getLayoutId(int itemType) {
-                if (type == TYPE_PHOTO_ITEM)
+                if (itemType == TYPE_PHOTO_ITEM)
                     return R.layout.item_news_photo;
-                else return R.Layout.item_news;
+                else return R.layout.item_news;
             }
 
             @Override
@@ -41,7 +46,7 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<NewsSummary> {
     @Override
     public void convert(ViewHolderHelper holder,final NewsSummary newsSummary,final int position){
         switch (holder.getLayoutId()){
-            case R.layout.item_news;
+            case R.layout.item_news:
                 setItemValues(holder,newsSummary,getPosition(holder));
                 break;
             case R.layout.item_news_photo:
@@ -89,10 +94,89 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<NewsSummary> {
         holder.setText(R.id.news_summary_title_tv,title);
         holder.setText(R.id.news_summary_ptime_tv,ptime);
         setImageView(holder,newsSummary);
-        holder.setOnClickListener(R.id.11_root,new View.OnClickListener(){
-            LogUtils.logd("start Action NewsPhotoDetailActivity");
+        holder.setOnClickListener(R.id.ll_root,new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                LogUtils.logd("start Action NewsPhotoDetailActivity");
+            }
         });
     }
+    private void setImageView(ViewHolderHelper holder, NewsSummary newsSummary) {
+        int PhotoThreeHeight = (int) DisplayUtil.dip2px(90);
+        int PhotoTwoHeight = (int) DisplayUtil.dip2px(120);
+        int PhotoOneHeight = (int)DisplayUtil.dip2px(150);
 
+        String imgSrcLeft = null;
+        String imgSrcMiddle = null;
+        String imgSrcRight = null;
+        LinearLayout news_summary_photo_iv_group=holder.getView(R.id.news_summary_photo_iv_group);
+        ViewGroup.LayoutParams layoutParams = news_summary_photo_iv_group.getLayoutParams();
 
+        if (newsSummary.getAds() != null) {
+            List<NewsSummary.AdsBean> adsBeanList = newsSummary.getAds();
+            int size = adsBeanList.size();
+            if (size >= 3) {
+                imgSrcLeft = adsBeanList.get(0).getImgsrc();
+                imgSrcMiddle = adsBeanList.get(1).getImgsrc();
+                imgSrcRight = adsBeanList.get(2).getImgsrc();
+                layoutParams.height = PhotoThreeHeight;
+                holder.setText(R.id.news_summary_title_tv, AppApplication.getAppContext()
+                        .getString(R.string.photo_collections, adsBeanList.get(0).getTitle()));
+            } else if (size >= 2) {
+                imgSrcLeft = adsBeanList.get(0).getImgsrc();
+                imgSrcMiddle = adsBeanList.get(1).getImgsrc();
+
+                layoutParams.height = PhotoTwoHeight;
+            } else if (size >= 1) {
+                imgSrcLeft = adsBeanList.get(0).getImgsrc();
+
+                layoutParams.height = PhotoOneHeight;
+            }
+        } else if (newsSummary.getImgextra() != null) {
+            int size = newsSummary.getImgextra().size();
+            if (size >= 3) {
+                imgSrcLeft = newsSummary.getImgextra().get(0).getImgsrc();
+                imgSrcMiddle = newsSummary.getImgextra().get(1).getImgsrc();
+                imgSrcRight = newsSummary.getImgextra().get(2).getImgsrc();
+
+                layoutParams.height = PhotoThreeHeight;
+            } else if (size >= 2) {
+                imgSrcLeft = newsSummary.getImgextra().get(0).getImgsrc();
+                imgSrcMiddle = newsSummary.getImgextra().get(1).getImgsrc();
+
+                layoutParams.height = PhotoTwoHeight;
+            } else if (size >= 1) {
+                imgSrcLeft = newsSummary.getImgextra().get(0).getImgsrc();
+
+                layoutParams.height = PhotoOneHeight;
+            }
+        } else {
+            imgSrcLeft = newsSummary.getImgsrc();
+
+            layoutParams.height = PhotoOneHeight;
+        }
+
+        setPhotoImageView(holder, imgSrcLeft, imgSrcMiddle, imgSrcRight);
+        news_summary_photo_iv_group.setLayoutParams(layoutParams);
+    }
+    private void setPhotoImageView(ViewHolderHelper holder, String imgSrcLeft, String imgSrcMiddle, String imgSrcRight) {
+        if (imgSrcLeft != null) {
+            holder.setVisible(R.id.news_summary_photo_iv_left,true);
+            holder.setImageUrl(R.id.news_summary_photo_iv_left,imgSrcLeft);
+        } else {
+            holder.setVisible(R.id.news_summary_photo_iv_left,false);
+        }
+        if (imgSrcMiddle != null) {
+            holder.setVisible(R.id.news_summary_photo_iv_middle,true);
+            holder.setImageUrl(R.id.news_summary_photo_iv_middle,imgSrcMiddle);
+        } else {
+            holder.setVisible(R.id.news_summary_photo_iv_middle,false);
+        }
+        if (imgSrcRight != null) {
+            holder.setVisible(R.id.news_summary_photo_iv_right,true);
+            holder.setImageUrl(R.id.news_summary_photo_iv_right,imgSrcRight);
+        } else {
+            holder.setVisible(R.id.news_summary_photo_iv_right,false);
+        }
+    }
 }
