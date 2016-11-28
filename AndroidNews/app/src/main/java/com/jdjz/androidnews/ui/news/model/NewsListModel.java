@@ -8,6 +8,7 @@ import com.jdjz.androidnews.api.HostType;
 import com.jdjz.androidnews.bean.NewsSummary;
 import com.jdjz.androidnews.ui.news.contract.NewsListContract;
 import com.jdjz.common.baserx.RxSchedulers;
+import com.jdjz.common.commonutils.LogUtils;
 import com.jdjz.common.commonutils.TimeUtil;
 
 import java.util.List;
@@ -20,7 +21,7 @@ import rx.functions.Func2;
 /**
  * Created by tchl on 2016-11-21.
  */
-public class NewsListModel extends NewsListContract.Model {
+public class NewsListModel implements NewsListContract.Model {
     @Override
     public Observable<List<NewsSummary>> getNewsListData(String type, final String id, int startPage) {
         return Api.getDefault(HostType.NETEASE_NEWS_VIDEO).getNewsList(Api.getCacheControl(),type,id,startPage)
@@ -40,6 +41,7 @@ public class NewsListModel extends NewsListContract.Model {
                     public NewsSummary call(NewsSummary newsSummary) {
                         String ptime = TimeUtil.formatDate(newsSummary.getPtime());
                         newsSummary.setPtime(ptime);
+                        LogUtils.logd("Ptime:"+ptime);
                         return newsSummary;
                     }
                 })

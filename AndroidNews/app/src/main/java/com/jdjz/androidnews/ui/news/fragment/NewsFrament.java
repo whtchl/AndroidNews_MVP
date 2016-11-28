@@ -77,12 +77,12 @@ public class NewsFrament extends BaseFragment<NewsListPresenter,NewsListModel> i
                 irc.setRefreshing(false);
                 newListAdapter.replaceAll(newsSummaries);
             }else{
-                if(newsSummaries.size()>0){
+/*                if(newsSummaries.size()>0){
                     irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
                     newListAdapter.addAll(newsSummaries);
                 }else{
                     irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
-                }
+                }*/
             }
         }
     }
@@ -105,7 +105,7 @@ public class NewsFrament extends BaseFragment<NewsListPresenter,NewsListModel> i
     }
 
     @Override
-    public void ShowLoading(String title){
+    public void showLoading(String title){
         if(newListAdapter.getPageBean().isRefresh()){
             //loadedTip.setLoadingTip(LoadingTip)
             LogUtils.logd("show load tip");
@@ -120,6 +120,11 @@ public class NewsFrament extends BaseFragment<NewsListPresenter,NewsListModel> i
 
     @Override
     public void showErrorTip(String msg) {
+
+    }
+
+    @Override
+    public void scrolltoTop() {
 
     }
 }

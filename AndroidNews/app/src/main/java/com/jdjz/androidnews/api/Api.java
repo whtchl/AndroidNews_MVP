@@ -21,7 +21,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import okhttp3.Request;
 import retrofit2.converter.gson.GsonConverterFactory;
-
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 /**
  * Created by tchl on 2016-11-21.
  */
@@ -104,7 +104,7 @@ public class Api {
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .buildUrl(ApiConstants.getHost(hostType))
+                .baseUrl(ApiConstants.getHost(hostType))
                 .build();
         movieService = retrofit.create(ApiService.class);
     }

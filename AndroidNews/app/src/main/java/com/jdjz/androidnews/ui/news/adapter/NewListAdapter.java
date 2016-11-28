@@ -43,18 +43,6 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<NewsSummary> {
         });
     }
 
-    @Override
-    public void convert(ViewHolderHelper holder,final NewsSummary newsSummary,final int position){
-        switch (holder.getLayoutId()){
-            case R.layout.item_news:
-                setItemValues(holder,newsSummary,getPosition(holder));
-                break;
-            case R.layout.item_news_photo:
-                setPhotoItemValues(holder,newsSummary,getPosition(holder));
-                break;
-        }
-    }
-
     /**
      * 普通样式
      * @param holder
@@ -63,7 +51,7 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<NewsSummary> {
      */
     private void setItemValues(final ViewHolderHelper holder,final NewsSummary newsSummary,final int position){
         String title = newsSummary.getTitle();
-        if(title = null){
+        if(title == null){
             title= newsSummary.getTitle();
         }
         String ptime = newsSummary.getPtime();
@@ -177,6 +165,19 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<NewsSummary> {
             holder.setImageUrl(R.id.news_summary_photo_iv_right,imgSrcRight);
         } else {
             holder.setVisible(R.id.news_summary_photo_iv_right,false);
+        }
+    }
+
+    @Override
+    public void convert(ViewHolderHelper holder, NewsSummary newsSummary) {
+        switch (holder.getLayoutId())
+        {
+            case R.layout.item_news:
+                setItemValues(holder,newsSummary,getPosition(holder));
+                break;
+            case R.layout.item_news_photo:
+                setPhotoItemValues(holder,newsSummary,getPosition(holder));
+                break;
         }
     }
 }

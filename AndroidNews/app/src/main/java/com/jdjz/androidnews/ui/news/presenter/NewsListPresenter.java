@@ -4,6 +4,7 @@ import com.jdjz.androidnews.R;
 import com.jdjz.androidnews.bean.NewsSummary;
 import com.jdjz.androidnews.ui.news.contract.NewsListContract;
 import com.jdjz.common.baserx.RxSubscriber;
+import com.jdjz.common.commonutils.LogUtils;
 
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class NewsListPresenter extends NewsListContract.Presenter {
 
             @Override
             protected void _onNext(List<NewsSummary> newsSummaries) {
+                LogUtils.logd("NewsListPresenter->_onNext");
                 mView.returnNewsListData(newsSummaries);
                 mView.stopLoading();
             }
