@@ -28,9 +28,11 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<NewsSummary> {
         super(context, datas, new MultiItemTypeSupport<NewsSummary>() {
             @Override
             public int getLayoutId(int itemType) {
-                if (itemType == TYPE_PHOTO_ITEM)
+         /*       if (itemType == TYPE_PHOTO_ITEM)
                     return R.layout.item_news_photo;
-                else return R.layout.item_news;
+                else return R.layout.item_news;*/
+
+                return R.layout.item_news;
             }
 
             @Override
@@ -175,9 +177,9 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<NewsSummary> {
             case R.layout.item_news:
                 setItemValues(holder,newsSummary,getPosition(holder));
                 break;
-            case R.layout.item_news_photo:
-                setPhotoItemValues(holder,newsSummary,getPosition(holder));
-                break;
+            /*case R.layout.item_news_photo:
+                setPhotoItemValues(holder,newsSummary,getPosition(holder));*/
+              //  break;
         }
     }
 }
