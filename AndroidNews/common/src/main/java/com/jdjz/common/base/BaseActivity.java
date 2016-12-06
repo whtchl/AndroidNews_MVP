@@ -18,6 +18,7 @@ import android.view.Window;
 
 import com.jdjz.common.R;
 import com.jdjz.common.baseapp.*;
+import com.jdjz.common.baserx.RxManager;
 import com.jdjz.common.commonutils.LogUtils;
 import com.jdjz.common.commonutils.TUtil;
 import com.jdjz.common.commonutils.ToastUitl;
@@ -62,11 +63,13 @@ public abstract class BaseActivity<T extends BasePresenter,E extends BaseModel> 
     public T mPresenter;
     public E mModel;
     public Context mContext;
+    public RxManager mRxManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LogUtils.logd("BaseActivity onCreate");
+        mRxManager = new RxManager();
         doDeforeSecontentView();
         setContentView(getLayoutId());
         ButterKnife.bind(this);

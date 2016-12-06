@@ -1,14 +1,19 @@
 package com.jdjz.androidnews.ui.main.activity;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.BoolRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.flyco.tablayout.CommonTabLayout;
@@ -25,6 +30,7 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import rx.functions.Action1;
 
 public class MainActivity extends BaseActivity {
 
@@ -51,6 +57,40 @@ public class MainActivity extends BaseActivity {
         tabLayout.measure(0,0);
         tabLayoutHeight=tabLayout.getMeasuredHeight();
         initFragment(savedInstanceState);
+
+        //监听菜单显示或隐藏
+        mRxManager.on(AppConstant.MENU_SHOW_HIDE,new Action1<Boolean>(){
+
+            @Override
+            public void call(Boolean aBoolean) {
+                startAnimation(aBoolean);
+            }
+        });
+    }
+
+    private void startAnimation(boolean showOrHide){
+        final ViewGroup.LayoutParams layoutParams = tabLayout.getLayoutParams();
+        final ValueAnimator valueAnimator;
+        ObjectAnimator alpha;
+        if(!showOrHide){
+            valueAnimator = ValueAnimator.ofInt(tabLayoutHeight,0);
+            alpha = ObjectAnimator.ofFloat(tabLayout,"alpha",1,0);
+        }else{
+            valueAnimator = ValueAnimator.ofInt(0,tabLayoutHeight);
+            alpha = ObjectAnimator.ofFloat(tabLayout,"alpha",0,1);
+        }
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener(){
+
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                layoutParams.height = (int)valueAnimator.getAnimatedValue();
+                tabLayout.setLayoutParams(layoutParams);
+            }
+        });
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.setDuration(500);
+        animatorSet.playTogether(valueAnimator,alpha);
+        animatorSet.start();
     }
 
     @Override
