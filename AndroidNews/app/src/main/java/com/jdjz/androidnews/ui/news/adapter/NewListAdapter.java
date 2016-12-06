@@ -28,11 +28,9 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<NewsSummary> {
         super(context, datas, new MultiItemTypeSupport<NewsSummary>() {
             @Override
             public int getLayoutId(int itemType) {
-         /*       if (itemType == TYPE_PHOTO_ITEM)
+                if (itemType == TYPE_PHOTO_ITEM)
                     return R.layout.item_news_photo;
-                else return R.layout.item_news;*/
-
-                return R.layout.item_news;
+                else return R.layout.item_news;
             }
 
             @Override
@@ -91,65 +89,64 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<NewsSummary> {
             }
         });
     }
-    private void setImageView(ViewHolderHelper holder, NewsSummary newsSummary) {
-        int PhotoThreeHeight = (int) DisplayUtil.dip2px(90);
-        int PhotoTwoHeight = (int) DisplayUtil.dip2px(120);
-        int PhotoOneHeight = (int)DisplayUtil.dip2px(150);
-
+    private void setImageView(ViewHolderHelper holder,NewsSummary newsSummary){
+    /*  int PhotoThreeHeight = (int)DisplayUtil.dip2px(90);
+        int PhotoTwoHeight = (int)DisplayUtil.dip2px(120);
+        int PhotoOneHeight = (int)DisplayUtil.dip2px(150);*/
         String imgSrcLeft = null;
         String imgSrcMiddle = null;
         String imgSrcRight = null;
-        LinearLayout news_summary_photo_iv_group=holder.getView(R.id.news_summary_photo_iv_group);
+        LinearLayout news_summary_photo_iv_group = holder.getView(R.id.news_summary_photo_iv_group);
         ViewGroup.LayoutParams layoutParams = news_summary_photo_iv_group.getLayoutParams();
-
-        if (newsSummary.getAds() != null) {
+        if(newsSummary.getAds()!=null){
             List<NewsSummary.AdsBean> adsBeanList = newsSummary.getAds();
             int size = adsBeanList.size();
-            if (size >= 3) {
+            LogUtils.logd("adsBeanList size:"+size);
+            if(size >=3 ){
                 imgSrcLeft = adsBeanList.get(0).getImgsrc();
                 imgSrcMiddle = adsBeanList.get(1).getImgsrc();
                 imgSrcRight = adsBeanList.get(2).getImgsrc();
-                layoutParams.height = PhotoThreeHeight;
-                holder.setText(R.id.news_summary_title_tv, AppApplication.getAppContext()
-                        .getString(R.string.photo_collections, adsBeanList.get(0).getTitle()));
-            } else if (size >= 2) {
+                //layoutParams.height = PhotoThreeHeight;
+                holder.setText(R.id.news_summary_title_tv,AppApplication.getAppContext().getString(R.string.photo_collections
+                               ,adsBeanList.get(0).getTitle()));
+            }else if (size >= 2) {
                 imgSrcLeft = adsBeanList.get(0).getImgsrc();
                 imgSrcMiddle = adsBeanList.get(1).getImgsrc();
 
-                layoutParams.height = PhotoTwoHeight;
+               // layoutParams.height = PhotoTwoHeight;
             } else if (size >= 1) {
                 imgSrcLeft = adsBeanList.get(0).getImgsrc();
-
-                layoutParams.height = PhotoOneHeight;
+                //layoutParams.height = PhotoOneHeight;
             }
-        } else if (newsSummary.getImgextra() != null) {
+        }else if (newsSummary.getImgextra() != null) {
             int size = newsSummary.getImgextra().size();
             if (size >= 3) {
                 imgSrcLeft = newsSummary.getImgextra().get(0).getImgsrc();
                 imgSrcMiddle = newsSummary.getImgextra().get(1).getImgsrc();
                 imgSrcRight = newsSummary.getImgextra().get(2).getImgsrc();
 
-                layoutParams.height = PhotoThreeHeight;
+                //layoutParams.height = PhotoThreeHeight;
             } else if (size >= 2) {
                 imgSrcLeft = newsSummary.getImgextra().get(0).getImgsrc();
                 imgSrcMiddle = newsSummary.getImgextra().get(1).getImgsrc();
 
-                layoutParams.height = PhotoTwoHeight;
+                //layoutParams.height = PhotoTwoHeight;
             } else if (size >= 1) {
                 imgSrcLeft = newsSummary.getImgextra().get(0).getImgsrc();
 
-                layoutParams.height = PhotoOneHeight;
+                //layoutParams.height = PhotoOneHeight;
             }
-        } else {
+        }else {
             imgSrcLeft = newsSummary.getImgsrc();
 
-            layoutParams.height = PhotoOneHeight;
+            //layoutParams.height = PhotoOneHeight;
         }
 
         setPhotoImageView(holder, imgSrcLeft, imgSrcMiddle, imgSrcRight);
         news_summary_photo_iv_group.setLayoutParams(layoutParams);
     }
-    private void setPhotoImageView(ViewHolderHelper holder, String imgSrcLeft, String imgSrcMiddle, String imgSrcRight) {
+
+    private  void setPhotoImageView(ViewHolderHelper holder,String imgSrcLeft,String imgSrcMiddle,String imgSrcRight){
         if (imgSrcLeft != null) {
             holder.setVisible(R.id.news_summary_photo_iv_left,true);
             holder.setImageUrl(R.id.news_summary_photo_iv_left,imgSrcLeft);
@@ -169,7 +166,6 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<NewsSummary> {
             holder.setVisible(R.id.news_summary_photo_iv_right,false);
         }
     }
-
     @Override
     public void convert(ViewHolderHelper holder, NewsSummary newsSummary) {
         switch (holder.getLayoutId())
@@ -177,9 +173,9 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<NewsSummary> {
             case R.layout.item_news:
                 setItemValues(holder,newsSummary,getPosition(holder));
                 break;
-            /*case R.layout.item_news_photo:
-                setPhotoItemValues(holder,newsSummary,getPosition(holder));*/
-              //  break;
+            case R.layout.item_news_photo:
+                setPhotoItemValues(holder,newsSummary,getPosition(holder));
+                break;
         }
     }
 }
