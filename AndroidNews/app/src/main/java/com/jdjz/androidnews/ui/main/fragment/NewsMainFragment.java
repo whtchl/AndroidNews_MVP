@@ -69,7 +69,7 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter, NewsMainMo
         });*/
     }
 
-/*    @OnClick(R.id.add_channel_iv)
+   /*@OnClick(R.id.add_channel_iv)
     public void clickAdd(){
         //NewsChannelActivity.startAction(getContext());
     }*/

@@ -32,7 +32,7 @@ import rx.Observable;
  * Created by tchl on 2016-11-21.
  */
 public class NewsFrament extends BaseFragment<NewsListPresenter,NewsListModel> implements NewsListContract.View,OnRefreshListener,OnLoadMoreListener {
-    @Bind(R.id.irc)
+    //@Bind(R.id.irc)
     IRecyclerView irc;
 
     private NewListAdapter newListAdapter;
@@ -53,6 +53,7 @@ public class NewsFrament extends BaseFragment<NewsListPresenter,NewsListModel> i
 
     @Override
     protected void initView() {
+        irc =(IRecyclerView) rootView.findViewById(R.id.irc);
         if(getArguments()!=null){
             mNewsId  =getArguments().getString(AppConstant.NEWS_ID);
             mNewsType = getArguments().getString(AppConstant.NEWS_TYPE);
