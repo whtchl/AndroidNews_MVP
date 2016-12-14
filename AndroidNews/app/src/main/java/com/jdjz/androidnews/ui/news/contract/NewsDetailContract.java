@@ -1,5 +1,6 @@
 package com.jdjz.androidnews.ui.news.contract;
 
+import com.jdjz.androidnews.bean.NewsDetail;
 import com.jdjz.androidnews.bean.NewsSummary;
 import com.jdjz.common.base.BaseModel;
 import com.jdjz.common.base.BasePresenter;

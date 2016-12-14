@@ -37,8 +37,10 @@ private String voicecomment;                    "voicecomment":"off",
 private List<?> relative_sys;                  "relative_sys":[{"id":"C7N6TFGO0001899N","title":"新加坡称望在港被扣装甲车能尽快归还 中方回应","source":"网易国际","imgsrc":"http://cms-bucket.nosdn.127.net/catchpic/f/fa/fa51d0fb1be306b91b583e6ec9aa2ed3.jpg","docID":"C7N6TFGO0001899N","from":"HZ","type":"doc","ptime":"2016-12-07 20:01:02","href":""},
                                                                {"id":"C7I3ON9O000187V9","title":"特朗普同蔡英文通话后在社交媒体发文 中方回应","source":"外交部网站","imgsrc":"http://cms-bucket.nosdn.127.net/5801a070bfab46c7827a8bccf2b530f320161205204452.png","docID":"C7I3ON9O000187V9","from":"HZ","type":"doc","ptime":"2016-12-05 20:20:00","href":""},
                                                                {"id":"C797MTJE051198M2","title":"美国U-2侦察机折翼古巴，看卡斯特罗怎么说","source":"航空制造网","imgsrc":"http://nbot-pub.nos.netease.com/563b3aff5f7d8e1c5f3914e37d92f3d2.jpeg","docID":"C797MTJE051198M2
+*/
 
-    */
+import java.util.List;
+
 /**
  * Created by tchl on 2016-12-08.
  */
@@ -73,7 +75,460 @@ public class NewsDetail {
      * apps : []
      * ptime : 2016-02-19 11:10:35
      */
-
     private String body;
+    private int replyCount;
+    private String shareLink;
+    private String digest;
+    private String dkeys;
+    private String ec;
+    private String docid;
+    private boolean picnews;
+    private String title;
+    private String tid;
+    private String template;
+    private int threadVote;
+    private int threadAgainst;
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public int getReplyCount() {
+        return replyCount;
+    }
+
+    public void setReplyCount(int replyCount) {
+        this.replyCount = replyCount;
+    }
+
+    public String getShareLink() {
+        return shareLink;
+    }
+
+    public void setShareLink(String shareLink) {
+        this.shareLink = shareLink;
+    }
+
+    public String getDigest() {
+        return digest;
+    }
+
+    public void setDigest(String digest) {
+        this.digest = digest;
+    }
+
+    public String getDkeys() {
+        return dkeys;
+    }
+
+    public void setDkeys(String dkeys) {
+        this.dkeys = dkeys;
+    }
+
+    public String getEc() {
+        return ec;
+    }
+
+    public void setEc(String ec) {
+        this.ec = ec;
+    }
+
+    public String getDocid() {
+        return docid;
+    }
+
+    public void setDocid(String docid) {
+        this.docid = docid;
+    }
+
+    public boolean isPicnews() {
+        return picnews;
+    }
+
+    public void setPicnews(boolean picnews) {
+        this.picnews = picnews;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getTid() {
+        return tid;
+    }
+
+    public void setTid(String tid) {
+        this.tid = tid;
+    }
+
+    public String getTemplate() {
+        return template;
+    }
+
+    public void setTemplate(String template) {
+        this.template = template;
+    }
+
+    public int getThreadVote() {
+        return threadVote;
+    }
+
+    public void setThreadVote(int threadVote) {
+        this.threadVote = threadVote;
+    }
+
+    public int getThreadAgainst() {
+        return threadAgainst;
+    }
+
+    public void setThreadAgainst(int threadAgainst) {
+        this.threadAgainst = threadAgainst;
+    }
+
+    public String getReplyBoard() {
+        return replyBoard;
+    }
+
+    public void setReplyBoard(String replyBoard) {
+        this.replyBoard = replyBoard;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public boolean isHasNext() {
+        return hasNext;
+    }
+
+    public void setHasNext(boolean hasNext) {
+        this.hasNext = hasNext;
+    }
+
+    public String getVoicecomment() {
+        return voicecomment;
+    }
+
+    public void setVoicecomment(String voicecomment) {
+        this.voicecomment = voicecomment;
+    }
+
+    public String getPtime() {
+        return ptime;
+    }
+
+    public void setPtime(String ptime) {
+        this.ptime = ptime;
+    }
+
+    private String replyBoard;
+    private String source;
+    private boolean hasNext;
+    private String voicecomment;
+    private String ptime;
+    private List<?> users;
+    private List<?> ydbaike;
+
+    public List<?> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<?> users) {
+        this.users = users;
+    }
+
+    public List<?> getYdbaike() {
+        return ydbaike;
+    }
+
+    public void setYdbaike(List<?> ydbaike) {
+        this.ydbaike = ydbaike;
+    }
+
+    public List<?> getLink() {
+        return link;
+    }
+
+    public void setLink(List<?> link) {
+        this.link = link;
+    }
+
+    public List<?> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(List<?> votes) {
+        this.votes = votes;
+    }
+
+    public List<?> getBoboList() {
+        return boboList;
+    }
+
+    public void setBoboList(List<?> boboList) {
+        this.boboList = boboList;
+    }
+
+    public List<?> getRelative_sys() {
+        return relative_sys;
+    }
+
+    public void setRelative_sys(List<?> relative_sys) {
+        this.relative_sys = relative_sys;
+    }
+
+    public List<?> getApps() {
+        return apps;
+    }
+
+    public void setApps(List<?> apps) {
+        this.apps = apps;
+    }
+
+    private List<?> link;
+    private List<?> votes;
+
+    public List<ImgBean> getImg() {
+        return img;
+    }
+
+    public void setImg(List<ImgBean> img) {
+        this.img = img;
+    }
+
+    public List<TopiclistBean> getTopiclist() {
+        return topiclist;
+    }
+
+    public void setTopiclist(List<TopiclistBean> topiclist) {
+        this.topiclist = topiclist;
+    }
+
+    public List<TopiclistNewsBean> getTopiclist_news() {
+        return topiclist_news;
+    }
+
+    public void setTopiclist_news(List<TopiclistNewsBean> topiclist_news) {
+        this.topiclist_news = topiclist_news;
+    }
+
+    /**
+     * ref : <!--IMG#0-->
+     * pixel : 550*512
+     * alt :
+     * src : http://img1.cache.netease.com/catchpic/7/7F/7F9C353236E073FA3FD66708AFA58935.png
+     */
+
+    private List<ImgBean> img;
+
+    /**
+     * hasCover : true
+     * subnum : 超过1000万
+     * alias : Women
+     * tname : 时尚
+     * ename : nvren
+     * tid : T1348650593803
+     * cid : C1348650356377
+     */
+    private List<TopiclistNewsBean> topiclist_news;
+
+    /**
+     * hasCover : false
+     * subnum : 41.3万
+     * alias : 网易时尚
+     * tname : 网易时尚
+     * ename : T1436757113402
+     * tid : T1436757113402
+     * cid : C1374477741540
+     */
+    private List<TopiclistBean> topiclist;
+
+    private List<?> boboList;
+    private List<?> relative_sys;
+    private List<?> apps;
+
+    public static class ImgBean{
+        private String ref;
+        private String pixel;
+        private String alt;
+        private String src;
+        public String getRef() {
+            return ref;
+        }
+
+        public void setRef(String ref) {
+            this.ref = ref;
+        }
+
+        public String getPixel() {
+            return pixel;
+        }
+
+        public void setPixel(String pixel) {
+            this.pixel = pixel;
+        }
+
+        public String getAlt() {
+            return alt;
+        }
+
+        public void setAlt(String alt) {
+            this.alt = alt;
+        }
+
+        public String getSrc() {
+            return src;
+        }
+
+        public void setSrc(String src) {
+            this.src = src;
+        }
+    }
+
+    public static class TopiclistNewsBean{
+        private boolean hasCover;
+        private String subnum;
+        private String alias;
+        private String tname;
+        private String ename;
+        private String tid;
+        private String cid;
+
+        public boolean isHasCover() {
+            return hasCover;
+        }
+
+        public void setHasCover(boolean hasCover) {
+            this.hasCover = hasCover;
+        }
+
+        public String getSubnum() {
+            return subnum;
+        }
+
+        public void setSubnum(String subnum) {
+            this.subnum = subnum;
+        }
+
+        public String getAlias() {
+            return alias;
+        }
+
+        public void setAlias(String alias) {
+            this.alias = alias;
+        }
+
+        public String getTname() {
+            return tname;
+        }
+
+        public void setTname(String tname) {
+            this.tname = tname;
+        }
+
+        public String getEname() {
+            return ename;
+        }
+
+        public void setEname(String ename) {
+            this.ename = ename;
+        }
+
+        public String getTid() {
+            return tid;
+        }
+
+        public void setTid(String tid) {
+            this.tid = tid;
+        }
+
+        public String getCid() {
+            return cid;
+        }
+
+        public void setCid(String cid) {
+            this.cid = cid;
+        }
+    }
+
+    public static class TopiclistBean{
+        private boolean hasCover;
+        private String subnum;
+
+        public boolean isHasCover() {
+            return hasCover;
+        }
+
+        public void setHasCover(boolean hasCover) {
+            this.hasCover = hasCover;
+        }
+
+        public String getSubnum() {
+            return subnum;
+        }
+
+        public void setSubnum(String subnum) {
+            this.subnum = subnum;
+        }
+
+        public String getAlias() {
+            return alias;
+        }
+
+        public void setAlias(String alias) {
+            this.alias = alias;
+        }
+
+        public String getTname() {
+            return tname;
+        }
+
+        public void setTname(String tname) {
+            this.tname = tname;
+        }
+
+        public String getEname() {
+            return ename;
+        }
+
+        public void setEname(String ename) {
+            this.ename = ename;
+        }
+
+        public String getTid() {
+            return tid;
+        }
+
+        public void setTid(String tid) {
+            this.tid = tid;
+        }
+
+        public String getCid() {
+            return cid;
+        }
+
+        public void setCid(String cid) {
+            this.cid = cid;
+        }
+
+        private String alias;
+        private String tname;
+        private String ename;
+        private String tid;
+        private String cid;
+
+    }
 
 }

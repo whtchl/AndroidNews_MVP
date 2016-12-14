@@ -12,6 +12,7 @@ import com.aspsine.irecyclerview.universaladapter.recyclerview.MultiItemTypeSupp
 import com.jdjz.androidnews.R;
 import com.jdjz.androidnews.app.AppApplication;
 import com.jdjz.androidnews.bean.NewsSummary;
+import com.jdjz.androidnews.ui.news.activity.NewsDetailActivity;
 import com.jdjz.common.commonutils.DisplayUtil;
 import com.jdjz.common.commonutils.LogUtils;
 
@@ -65,7 +66,7 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<NewsSummary> {
         holder.setOnClickListener(R.id.rl_root,new View.OnClickListener(){
            @Override
             public void onClick(View view){
-               LogUtils.logd("start Action NewsDetailActivity");
+               NewsDetailActivity.startAction(mContext,holder.getView(R.id.news_summary_photo_iv),newsSummary.getPostid(),newsSummary.getImgsrc());
            }
         });
     }

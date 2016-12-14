@@ -15,4 +15,11 @@ public class AppConstant {
     public static final String CHANNEL_POSITION = "channel_position";
     public static final String CHANNEL_MINE = "CHANNEL_MINE";
     public static final String NEWS_CHANNEL_CHANGED = "NEWS_CHANNEL_CHANGED";
+
+    public static String NEWS_POST_ID = "NEWS_POST_ID";//新闻详情id
+
+
+    public static final String NEWS_IMG_RES = "news_img_res";
+
+    public static final String TRANSITION_ANIMATION_NEWS_PHOTOS = "transition_animation_news_photos";
 }

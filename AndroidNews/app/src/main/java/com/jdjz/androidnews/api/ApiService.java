@@ -1,5 +1,6 @@
 package com.jdjz.androidnews.api;
 
+import com.jdjz.androidnews.bean.NewsDetail;
 import com.jdjz.androidnews.bean.NewsSummary;
 import com.jdjz.androidnews.bean.User;
 import com.jdjz.common.basebean.BaseRespose;
@@ -23,11 +24,11 @@ public interface ApiService {
     @GET("login")
     Observable<BaseRespose<User>> login(@Query("username") String username, @Query("password") String password);
 
-/*    @GET("nc/article/{postId}/full.html")
+    @GET("nc/article/{postId}/full.html")
     Observable<Map<String,NewsDetail>> getNewDetail(
             @Header("Cache-Control") String cacheControl,
-            @Path("postId") String postId);
-    );*/
+            @Path("postId") String postId
+    );
 
     @GET("nc/article/{type}/{id}/{startPage}-20.html")
     Observable<Map<String,List<NewsSummary>>> getNewsList(
