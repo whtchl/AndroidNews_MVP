@@ -24,6 +24,7 @@ import com.jdjz.androidnews.bean.NewsDetail;
 import com.jdjz.androidnews.ui.news.contract.NewsDetailContract;
 import com.jdjz.androidnews.ui.news.model.NewsDetailModel;
 import com.jdjz.androidnews.ui.news.presenter.NewsDetailPresenter;
+import com.jdjz.androidnews.widget.URLImageGetter;
 import com.jdjz.common.base.BaseActivity;
 import com.jdjz.common.baserx.RxSchedulers;
 import com.jdjz.common.commonutils.LogUtils;
@@ -58,7 +59,7 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter, NewsDe
 
 
     private String postId;
-
+    private URLImageGetter mUrlImageGetter;
     /**
      * 入口
      *
@@ -127,8 +128,10 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter, NewsDe
         String newsTime = TimeUtil.formatDate(newsDetail.getPtime());
         String newsBody = newsDetail.getBody();
 
+        LogUtils.logd("newsSource:"+newsSource);
         setToolBarLayout(mNewsTitle);
-        //setNewsDetailBodyIv(newsBody, newsBody);
+        setNewsDetailBodyTv(newsDetail, newsBody);
+        newsDetailFromTv.setText(getString(R.string.news_from,newsSource,newsTime));
         setNewsDetailPhotoIv(NewsImgSrc);
     }
 
@@ -181,8 +184,10 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter, NewsDe
     private void setBody(NewsDetail newsDetail, String newsBody) {
         int imgTotal = newsDetail.getImg().size();
         if(isShowBody(newsBody,imgTotal)){
-            LogUtils.logd("show images");
+            mUrlImageGetter = new URLImageGetter(newsDetailBodyTv, newsBody, imgTotal);
+            newsDetailBodyTv.setText(Html.fromHtml(newsBody, mUrlImageGetter, null));
         }else{
+            LogUtils.logd(newsBody);
             newsDetailBodyTv.setText(Html.fromHtml(newsBody));
         }
     }

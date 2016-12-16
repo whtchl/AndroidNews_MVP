@@ -7,4 +7,5 @@
     <string name="transition_photos">transition_animation_news_photos</string>
     <!-- 新闻 -->
     <string name="photo_collections">图集：%1$s</string>
+    <string name="news_from">%1$s %2$s</string>
 </resources>
