@@ -6,11 +6,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jdjz.androidnews.R;
@@ -20,12 +25,18 @@ import com.jdjz.androidnews.ui.news.contract.NewsDetailContract;
 import com.jdjz.androidnews.ui.news.model.NewsDetailModel;
 import com.jdjz.androidnews.ui.news.presenter.NewsDetailPresenter;
 import com.jdjz.common.base.BaseActivity;
+import com.jdjz.common.baserx.RxSchedulers;
 import com.jdjz.common.commonutils.LogUtils;
+import com.jdjz.common.commonutils.TimeUtil;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import rx.Observable;
+import rx.Subscriber;
+import rx.functions.Action1;
 
 /**
  * Created by tchl on 2016-12-08.
@@ -34,7 +45,20 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter, NewsDe
 
     @Bind(R.id.news_detail_photo_iv)
     ImageView newsDetailPhotoIv;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+    @Bind(R.id.news_detail_from_tv)
+    TextView newsDetailFromTv;
+    @Bind(R.id.news_detail_body_tv)
+    TextView newsDetailBodyTv;
+    @Bind(R.id.progress_bar)
+    ProgressBar progressBar;
+    @Bind(R.id.toolbar_layout)
+    CollapsingToolbarLayout toolbarLayout;
+
+
     private String postId;
+
     /**
      * 入口
      *
@@ -98,8 +122,21 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter, NewsDe
     @Override
     public void returnOneNewsData(NewsDetail newsDetail) {
         String NewsImgSrc = getImgSrcs(newsDetail);
+        String mNewsTitle = newsDetail.getTitle();
+        String newsSource = newsDetail.getSource();
+        String newsTime = TimeUtil.formatDate(newsDetail.getPtime());
+        String newsBody = newsDetail.getBody();
+
+        setToolBarLayout(mNewsTitle);
+        //setNewsDetailBodyIv(newsBody, newsBody);
         setNewsDetailPhotoIv(NewsImgSrc);
     }
+
+    public void setToolBarLayout(String newsTitle) {
+        toolbarLayout.setTitle(newsTitle);
+
+    }
+
     private String getImgSrcs(NewsDetail newsDetail) {
         List<NewsDetail.ImgBean> imgSrcs = newsDetail.getImg();
         String imgSrc;
@@ -109,9 +146,10 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter, NewsDe
         } else {
             imgSrc = getIntent().getStringExtra(AppConstant.NEWS_IMG_RES);
         }
-        LogUtils.logd("NewsDetailActivity imgSrc:"+imgSrc);
+        LogUtils.logd("NewsDetailActivity imgSrc:" + imgSrc);
         return imgSrc;
     }
+
     private void setNewsDetailPhotoIv(String imgSrc) {
         Glide.with(this).load(imgSrc)
                 .fitCenter()
@@ -119,5 +157,38 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter, NewsDe
                 .crossFade().into(newsDetailPhotoIv);
     }
 
+    private void setNewsDetailBodyTv(final NewsDetail newsDetail, final String newsBody){
+        mRxManager.add(Observable.timer(500, TimeUnit.MILLISECONDS)
+        .compose(RxSchedulers.<Long>io_main())
+        .subscribe(new Subscriber<Long>() {
+            @Override
+            public void onCompleted() {
+                progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onNext(Long aLong) {
+                setBody(newsDetail,newsBody);
+            }
+        }));
+    }
+
+    private void setBody(NewsDetail newsDetail, String newsBody) {
+        int imgTotal = newsDetail.getImg().size();
+        if(isShowBody(newsBody,imgTotal)){
+            LogUtils.logd("show images");
+        }else{
+            newsDetailBodyTv.setText(Html.fromHtml(newsBody));
+        }
+    }
+
+    private boolean isShowBody(String newsBody, int imgTotal) {
+        return imgTotal >=2 && newsBody !=null;
+    }
 
 }
