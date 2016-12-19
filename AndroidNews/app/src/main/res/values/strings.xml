@@ -8,4 +8,6 @@
     <!-- 新闻 -->
     <string name="photo_collections">图集：%1$s</string>
     <string name="news_from">%1$s %2$s</string>
+    <string name="web_view">WebView</string>
+    <string name="browser">用浏览器打开</string>
 </resources>

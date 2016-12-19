@@ -4,14 +4,18 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -60,6 +64,7 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter, NewsDe
 
     private String postId;
     private URLImageGetter mUrlImageGetter;
+    private String mShareLink;
     /**
      * 入口
      *
@@ -98,6 +103,47 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter, NewsDe
     public void initView() {
         postId = getIntent().getStringExtra(AppConstant.NEWS_POST_ID);
         mPresenter.getOneNewsDataRequest(postId);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                    finishAfterTransition();
+                }else{
+                    finish();
+                }
+            }
+        });
+
+        toolbar.inflateMenu(R.menu.news_details);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_browser:
+                        LogUtils.logd("Menu  call browser");
+                        break;
+                    case R.id.action_web_view:
+                        LogUtils.logd("Menu call web View");
+                        Intent intent = new Intent();
+                        intent.setAction("android.intent.action.VIEW");
+                        if (canBrowse(intent)) {
+                            Uri uri = Uri.parse(mShareLink);
+                            intent.setData(uri);
+                            startActivity(intent);
+                        }
+                        break;
+                }
+                return true;
+            }
+
+        });
+
+    }
+
+    private boolean canBrowse(Intent intent) {
+        return (intent.resolveActivity(getPackageManager()) != null) && (mShareLink !=null);
+        /*return (getPackageManager().resolveActivity(intent,
+                PackageManager.GET_RESOLVED_FILTER ) != null) && (mShareLink !=null);*/
     }
 
     @Override
@@ -122,6 +168,7 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter, NewsDe
 
     @Override
     public void returnOneNewsData(NewsDetail newsDetail) {
+        mShareLink = newsDetail.getShareLink();
         String NewsImgSrc = getImgSrcs(newsDetail);
         String mNewsTitle = newsDetail.getTitle();
         String newsSource = newsDetail.getSource();
@@ -133,11 +180,14 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter, NewsDe
         setNewsDetailBodyTv(newsDetail, newsBody);
         newsDetailFromTv.setText(getString(R.string.news_from,newsSource,newsTime));
         setNewsDetailPhotoIv(NewsImgSrc);
+
     }
 
     public void setToolBarLayout(String newsTitle) {
         toolbarLayout.setTitle(newsTitle);
-
+        toolbarLayout.setExpandedTitleColor(ContextCompat.getColor(this,R.color.black));
+        toolbarLayout.setCollapsedTitleTextColor(ContextCompat.getColor(this,R.color.black));
+        toolbarLayout.setBackgroundColor(getResources().getColor(R.color.blue));
     }
 
     private String getImgSrcs(NewsDetail newsDetail) {
