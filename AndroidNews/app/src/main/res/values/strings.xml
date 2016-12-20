@@ -10,4 +10,7 @@
     <string name="news_from">%1$s %2$s</string>
     <string name="web_view">WebView</string>
     <string name="browser">用浏览器打开</string>
+
+    <string name="photo_news">图片新闻</string>
+
 </resources>

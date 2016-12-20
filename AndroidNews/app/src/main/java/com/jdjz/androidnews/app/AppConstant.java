@@ -20,6 +20,6 @@ public class AppConstant {
 
 
     public static final String NEWS_IMG_RES = "news_img_res";
-
+    public static final String PHOTO_DETAIL = "photo_detail";
     public static final String TRANSITION_ANIMATION_NEWS_PHOTOS = "transition_animation_news_photos";
 }
