@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jdjz.common.R;
+import com.jdjz.common.baserx.RxManager;
 import com.jdjz.common.commonutils.TUtil;
 import com.jdjz.common.commonutils.ToastUitl;
 
@@ -54,6 +55,7 @@ public abstract class BaseFragment<T extends BasePresenter,E extends BaseModel> 
     protected View rootView;
     public T mPresenter;
     public E mModel;
+    public RxManager mRxManager;
 
     @Nullable
     @Override
@@ -62,7 +64,7 @@ public abstract class BaseFragment<T extends BasePresenter,E extends BaseModel> 
             rootView = inflater.inflate(getLayoutResource(), container, false);
             ButterKnife.bind(this, rootView);
         }
-
+        mRxManager = new RxManager();
         mPresenter = TUtil.getT(this, 0);
         mModel = TUtil.getT(this,1);
         if (mPresenter != null) {
@@ -193,7 +195,7 @@ public abstract class BaseFragment<T extends BasePresenter,E extends BaseModel> 
         ButterKnife.unbind(this);
         if (mPresenter != null)
             mPresenter.onDestroy();
-    //    mRxManager.clear();
+        mRxManager.clear();
     }
 
 }

@@ -3,7 +3,6 @@ package com.jdjz.androidnews.ui.main.presenter;
 import com.jdjz.androidnews.app.AppConstant;
 import com.jdjz.androidnews.bean.NewsChannelTable;
 import com.jdjz.androidnews.ui.main.contract.NewsMainContract;
-import com.jdjz.common.baserx.RxSchedulers;
 import com.jdjz.common.baserx.RxSubscriber;
 import com.jdjz.common.commonutils.LogUtils;
 

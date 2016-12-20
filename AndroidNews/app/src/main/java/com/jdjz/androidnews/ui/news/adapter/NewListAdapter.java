@@ -13,6 +13,7 @@ import com.jdjz.androidnews.R;
 import com.jdjz.androidnews.app.AppApplication;
 import com.jdjz.androidnews.bean.NewsSummary;
 import com.jdjz.androidnews.ui.news.activity.NewsDetailActivity;
+import com.jdjz.androidnews.ui.news.activity.NewsPhotoDetailActivity;
 import com.jdjz.common.commonutils.DisplayUtil;
 import com.jdjz.common.commonutils.LogUtils;
 
@@ -87,6 +88,7 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<NewsSummary> {
             @Override
             public void onClick(View v) {
                 LogUtils.logd("start Action NewsPhotoDetailActivity");
+                //NewsPhotoDetailActivity.startAction(mContext,);
             }
         });
     }
