@@ -81,7 +81,7 @@ public class NewsPhotoDetailActivity extends BaseActivity {
 
     private void createFragment(NewsPhotoDetail mNewsPhotoDetail) {
         mPhotoDetailFragmentList.clear();
-        for(NewsPhotoDetail.Picture picture: mNewsPhotoDetail.getPicures()){
+        for(NewsPhotoDetail.Picture picture: mNewsPhotoDetail.getPictures()){
             PhotoDetailFragment fragment = new PhotoDetailFragment();
             Bundle bundle = new Bundle();
             bundle.putString(AppConstant.PHOTO_DETAIL_IMGSRC,  picture.getImgSrc());

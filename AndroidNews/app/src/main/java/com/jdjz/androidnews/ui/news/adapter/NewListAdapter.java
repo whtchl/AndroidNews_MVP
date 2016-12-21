@@ -205,7 +205,7 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<NewsSummary> {
             }else{
                 setValuesAndAddToList(pictureList,null,newsSummary.getImgsrc());
             }
-        newsPhotoDetail.setPicures(pictureList);
+        newsPhotoDetail.setPictures(pictureList);
     }
 
     private void setValuesAndAddToList(List<NewsPhotoDetail.Picture> picutreList, String title, String imgsrc) {
