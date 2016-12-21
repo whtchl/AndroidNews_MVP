@@ -90,7 +90,7 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<NewsSummary> {
             @Override
             public void onClick(View v) {
                 LogUtils.logd("start Action NewsPhotoDetailActivity");
-                //NewsPhotoDetailActivity.startAction(mContext,);
+                NewsPhotoDetailActivity.startAction(mContext,getPhotoDetail(newsSummary));
             }
         });
     }
@@ -188,26 +188,32 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<NewsSummary> {
         NewsPhotoDetail newsPhotoDetail = new NewsPhotoDetail();
         newsPhotoDetail.setTitle(newsSummary.getTitle());
         setPictures(newsSummary,newsPhotoDetail);
-        return newsPhotoDetail
+        return newsPhotoDetail;
     }
 
     private void setPictures(NewsSummary newsSummary, NewsPhotoDetail newsPhotoDetail) {
-        List<NewsPhotoDetail.Picture> picutreList = new ArrayList<NewsPhotoDetail.Picture>();
+        List<NewsPhotoDetail.Picture> pictureList = new ArrayList<NewsPhotoDetail.Picture>();
 
         if(newsSummary.getAds()!=null) {
             for (NewsSummary.AdsBean entity : newsSummary.getAds()) {
-                setValuesAndAddToList(pictureList, entity.getTitle());
+                setValuesAndAddToList(pictureList,null,entity.getTitle());
             }
         }else if(newsSummary.getImgextra() != null){
                 for(NewsSummary.ImgextraBean entity:newsSummary.getImgextra()){
-                    setValuesAndAddToList(picutreList,null,entity.getImgsrc());
+                    setValuesAndAddToList(pictureList,null,entity.getImgsrc());
                 }
             }else{
-                setValuesAndAddToList(picutreList,null,newsSummary.getImgsrc());
+                setValuesAndAddToList(pictureList,null,newsSummary.getImgsrc());
             }
-        newsPhotoDetail.setPicures(picutreList);
+        newsPhotoDetail.setPicures(pictureList);
     }
 
-    private void setValuesAndAddToList(List<Picture> picutreList, Object o, String imgsrc) {
+    private void setValuesAndAddToList(List<NewsPhotoDetail.Picture> picutreList, String title, String imgsrc) {
+        NewsPhotoDetail.Picture picture = new NewsPhotoDetail.Picture();
+        if(title != null){
+            picture.setTitle(title);
+        }
+        picture.setImgSrc(imgsrc);
+        picutreList.add(picture);
     }
 }

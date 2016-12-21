@@ -14,25 +14,7 @@ import java.util.List;
 public class NewsPhotoDetail implements Parcelable{
     private String title;
     private List<Picture> picures;
-    public static final Creator<NewsPhotoDetail> CREATOR = new Creator<NewsPhotoDetail>() {
-        @Override
-        public NewsPhotoDetail createFromParcel(Parcel in) {
-            return new NewsPhotoDetail(in);
-        }
 
-        @Override
-        public NewsPhotoDetail[] newArray(int size) {
-            return new NewsPhotoDetail[size];
-        }
-    };
-
-    public List<Picture> getPicures() {
-        return picures;
-    }
-
-    public void setPicures(List<Picture> picures) {
-        this.picures = picures;
-    }
 
     public String getTitle() {
         return title;
@@ -42,31 +24,21 @@ public class NewsPhotoDetail implements Parcelable{
         this.title = title;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public List<Picture> getPicures() {
+        return picures;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.title);
-        dest.writeList(this.picures);
+    public void setPicures(List<Picture> picures) {
+        this.picures = picures;
     }
 
-    public NewsPhotoDetail(){
 
-    }
-    protected NewsPhotoDetail(Parcel in){
-        this.title = in.readString();
-        this.picures = new ArrayList<Picture>();
-        in.readList(picures,Picture.class.getClassLoader());
-    }
 
     public static  class Picture implements Parcelable{
 
         private String title;
         private String imgSrc;
-
+        public Picture() {}
         protected Picture(Parcel in) {
             title = in.readString();
             imgSrc = in.readString();
@@ -111,5 +83,37 @@ public class NewsPhotoDetail implements Parcelable{
             this.title = dest.readString();
             this.imgSrc = dest.readString();
         }
+    }
+
+    public static final Creator<NewsPhotoDetail> CREATOR = new Creator<NewsPhotoDetail>() {
+        @Override
+        public NewsPhotoDetail createFromParcel(Parcel in) {
+            return new NewsPhotoDetail(in);
+        }
+
+        @Override
+        public NewsPhotoDetail[] newArray(int size) {
+            return new NewsPhotoDetail[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.title);
+        dest.writeList(this.picures);
+    }
+
+    public NewsPhotoDetail(){
+
+    }
+    protected NewsPhotoDetail(Parcel in){
+        this.title = in.readString();
+        this.picures = new ArrayList<>();
+        in.readList(this.picures,Picture.class.getClassLoader());
     }
 }

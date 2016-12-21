@@ -89,6 +89,4 @@ public class NewsPhotoDetailActivity extends BaseActivity {
             mPhotoDetailFragmentList.add(fragment);
         }
     }
-
-
 }
