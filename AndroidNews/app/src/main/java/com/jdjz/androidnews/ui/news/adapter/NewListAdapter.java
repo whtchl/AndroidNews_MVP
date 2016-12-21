@@ -11,12 +11,14 @@ import com.aspsine.irecyclerview.universaladapter.recyclerview.MultiItemRecycleV
 import com.aspsine.irecyclerview.universaladapter.recyclerview.MultiItemTypeSupport;
 import com.jdjz.androidnews.R;
 import com.jdjz.androidnews.app.AppApplication;
+import com.jdjz.androidnews.bean.NewsPhotoDetail;
 import com.jdjz.androidnews.bean.NewsSummary;
 import com.jdjz.androidnews.ui.news.activity.NewsDetailActivity;
 import com.jdjz.androidnews.ui.news.activity.NewsPhotoDetailActivity;
 import com.jdjz.common.commonutils.DisplayUtil;
 import com.jdjz.common.commonutils.LogUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -180,5 +182,32 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<NewsSummary> {
                 setPhotoItemValues(holder,newsSummary,getPosition(holder));
                 break;
         }
+    }
+
+    private NewsPhotoDetail getPhotoDetail(NewsSummary newsSummary){
+        NewsPhotoDetail newsPhotoDetail = new NewsPhotoDetail();
+        newsPhotoDetail.setTitle(newsSummary.getTitle());
+        setPictures(newsSummary,newsPhotoDetail);
+        return newsPhotoDetail
+    }
+
+    private void setPictures(NewsSummary newsSummary, NewsPhotoDetail newsPhotoDetail) {
+        List<NewsPhotoDetail.Picture> picutreList = new ArrayList<NewsPhotoDetail.Picture>();
+
+        if(newsSummary.getAds()!=null) {
+            for (NewsSummary.AdsBean entity : newsSummary.getAds()) {
+                setValuesAndAddToList(pictureList, entity.getTitle());
+            }
+        }else if(newsSummary.getImgextra() != null){
+                for(NewsSummary.ImgextraBean entity:newsSummary.getImgextra()){
+                    setValuesAndAddToList(picutreList,null,entity.getImgsrc());
+                }
+            }else{
+                setValuesAndAddToList(picutreList,null,newsSummary.getImgsrc());
+            }
+        newsPhotoDetail.setPicures(picutreList);
+    }
+
+    private void setValuesAndAddToList(List<Picture> picutreList, Object o, String imgsrc) {
     }
 }
