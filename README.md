@@ -1,5 +1,7 @@
 # AndroidNews
 获取泛型中的类的类型
+
+
 public class TUtil {
     public static <T> T getT(Object o, int i) {
         try {
