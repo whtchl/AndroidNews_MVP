@@ -3,7 +3,9 @@
 
 
 public class TUtil {
+
     public static <T> T getT(Object o, int i) {
+    
         try {
             Log.d("TUtil","Class "+i+":type is "+  (Class<T>) ((ParameterizedType) (o.getClass()
                     .getGenericSuperclass())).getActualTypeArguments()[i]);
