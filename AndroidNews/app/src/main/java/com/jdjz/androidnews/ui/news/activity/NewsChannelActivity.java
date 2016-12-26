@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import com.jdjz.androidnews.R;
 import com.jdjz.androidnews.bean.NewsChannelTable;
 import com.jdjz.androidnews.ui.news.adapter.ChannelAdapter;
+import com.jdjz.androidnews.ui.news.adapter.ChannelAdapter.OnItemClickListner;
 import com.jdjz.androidnews.ui.news.contract.NewsChannelCtontract;
 import com.jdjz.androidnews.ui.news.model.NewsChannelModel;
 import com.jdjz.androidnews.ui.news.presenter.NewsChannelPresenter;
@@ -37,6 +38,7 @@ public class NewsChannelActivity extends BaseActivity<NewsChannelPresenter,NewsC
     RecyclerView newsChannelMoreRv;//<NewsChanelPresenter,NewsChannelModel> implements NewsChannelContract.View
 
     private ChannelAdapter channelAdapterMine;
+    private ChannelAdapter channelAdapterMore;
     @Override
     public int getLayoutId() {
         return R.layout.act_news_channel;
@@ -104,9 +106,18 @@ public class NewsChannelActivity extends BaseActivity<NewsChannelPresenter,NewsC
 
     @Override
     public void returnMoreNewsChannels(List<NewsChannelTable> newsChannelsMine){
-        channelAdapterMine = new ChannelAdapter(mContext,R.layout.item_news_channel);
+        channelAdapterMore = new ChannelAdapter(mContext,R.layout.item_news_channel);
         newsChannelMoreRv.setLayoutManager(new GridLayoutManager(this,4, LinearLayoutManager.VERTICAL,false));
-        newsChannelMoreRv.setAdapter(channelAdapterMine);
+        newsChannelMoreRv.setAdapter(channelAdapterMore);
         channelAdapterMine.replaceAll(newsChannelsMine);
+        channelAdapterMore.setOnItemClickListener(new ChannelAdapter.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(View view, int position) {
+                NewsChannelTable newsChannelTable = channelAdapterMore.get(position);
+                channelAdapterMine.add(newsChannelTable);
+                channelAdapterMore.removeAt(position);
+            }
+        });
     }
 }
