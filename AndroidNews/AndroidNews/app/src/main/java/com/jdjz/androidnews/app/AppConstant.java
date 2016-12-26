@@ -14,6 +14,7 @@ public class AppConstant {
     public static final String NEWS_TYPE = "news_type";
     public static final String CHANNEL_POSITION = "channel_position";
     public static final String CHANNEL_MINE = "CHANNEL_MINE";
+    public static final String CHANNEL_MORE = "CHANNEL_MORE";
     public static final String NEWS_CHANNEL_CHANGED = "NEWS_CHANNEL_CHANGED";
 
     public static String NEWS_POST_ID = "NEWS_POST_ID";//新闻详情id

@@ -15,10 +15,12 @@ import rx.Observable;
 public interface NewsChannelCtontract {
     interface Model extends BaseModel{
         Observable<List<NewsChannelTable>>  lodeMineNewsChannels();
+        Observable<List<NewsChannelTable>> lodeMoreNewsChannels();
     }
 
     interface View extends BaseView {
         void returnMineNewsChannels(List<NewsChannelTable> newsChannelsMine);
+        void returnMoreNewsChannels(List<NewsChannelTable> newsChannelsMine);
     }
 
     abstract static class Presenter extends BasePresenter<View,Model>{

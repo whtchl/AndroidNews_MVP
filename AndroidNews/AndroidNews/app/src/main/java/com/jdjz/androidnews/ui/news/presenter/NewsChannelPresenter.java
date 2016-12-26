@@ -13,16 +13,24 @@ import java.util.List;
 public class NewsChannelPresenter extends NewsChannelCtontract.Presenter {
     @Override
     public void loadChannelsRequest() {
-        if(mModel == null){
-            LogUtils.logd("model is null");}
-        mRxManager.add(mModel.
-                lodeMineNewsChannels().
-                subscribe(
+        mRxManager.add(mModel.lodeMineNewsChannels().subscribe(
                         new RxSubscriber<List<NewsChannelTable>>(mContext,false)
                         {
             @Override
             protected void _onNext(List<NewsChannelTable> newsChannelTables) {
                 mView.returnMineNewsChannels(newsChannelTables);
+            }
+
+            @Override
+            protected void _onError(String t) {
+
+            }
+        }));
+
+        mRxManager.add(mModel.lodeMoreNewsChannels().subscribe(new RxSubscriber<List<NewsChannelTable>>(mContext,false) {
+            @Override
+            protected void _onNext(List<NewsChannelTable> newsChannelTables) {
+                mView.returnMoreNewsChannels(newsChannelTables);
             }
 
             @Override

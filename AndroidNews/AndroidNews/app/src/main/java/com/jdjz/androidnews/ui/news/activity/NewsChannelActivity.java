@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -95,8 +96,17 @@ public class NewsChannelActivity extends BaseActivity<NewsChannelPresenter,NewsC
     public void returnMineNewsChannels(List<NewsChannelTable> newsChannelsMine) {
         channelAdapterMine = new ChannelAdapter(mContext,R.layout.item_news_channel);
         newsChannelMineRv.setLayoutManager(new GridLayoutManager(this,4, LinearLayout.VERTICAL,false));
+        newsChannelMoreRv.setItemAnimator(new DefaultItemAnimator());
         newsChannelMineRv.setAdapter(channelAdapterMine);
         newsChannelMoreRv.setItemAnimator(new DefaultItemAnimator());
+        channelAdapterMine.replaceAll(newsChannelsMine);
+    }
+
+    @Override
+    public void returnMoreNewsChannels(List<NewsChannelTable> newsChannelsMine){
+        channelAdapterMine = new ChannelAdapter(mContext,R.layout.item_news_channel);
+        newsChannelMoreRv.setLayoutManager(new GridLayoutManager(this,4, LinearLayoutManager.VERTICAL,false));
+        newsChannelMoreRv.setAdapter(channelAdapterMine);
         channelAdapterMine.replaceAll(newsChannelsMine);
     }
 }
