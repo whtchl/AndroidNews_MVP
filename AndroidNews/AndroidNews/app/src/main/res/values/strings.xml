@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">AndroidNews</string>
+
+    <!--menu-->
+    <string name="news">AndroidNews新闻</string>
+    <!-- 共享过度动画 -->
+    <string name="transition_photos">transition_animation_news_photos</string>
+    <!-- 新闻 -->
+    <string name="photo_collections">图集：%1$s</string>
+    <string name="photo_detail_title">%1$d/%2$d　%3$s</string>
+    <string name="news_from">%1$s %2$s</string>
+    <string name="web_view">WebView</string>
+    <string name="browser">用浏览器打开</string>
+
+    <string name="photo_news">图片新闻</string>
+    <!-- 频道 -->
+    <string name="channel_explain">点击可增删/长按并拖拽可排序</string>
+    <string name="my_channel">我的频道</string>
+    <string name="more_channel">更多频道</string>
+    <string name="channel_manage">频道管理</string>
+
+</resources>

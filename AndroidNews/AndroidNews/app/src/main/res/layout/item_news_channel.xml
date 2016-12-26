@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:layout="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/news_channel_tv"
+    android:layout_height="30dp"
+    android:layout_width="match_parent"
+    android:background="@drawable/bg_item_news_channel"
+    android:gravity="center"
+    android:textSize="@dimen/font_small"
+    tools:text="头条" />
