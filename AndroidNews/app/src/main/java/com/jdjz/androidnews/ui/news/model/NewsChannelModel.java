@@ -48,8 +48,11 @@ public class NewsChannelModel implements NewsChannelCtontract.Model {
 
             @Override
             public void call(Subscriber<? super List<NewsChannelTable>> subscriber) {
-                ArrayList<NewsChannelTable> newsChannelTableArrayList = (ArrayList<NewsChannelTable>) ACache.get(AppApplication.getAppContext()).getAsObject(AppConstant.CHANNEL_MORE);
+                ArrayList<NewsChannelTable> newsChannelTableArrayList = (ArrayList<NewsChannelTable>) ACache.get(AppApplication.getAppContext())
+                        .getAsObject(AppConstant.CHANNEL_MORE);
+                LogUtils.logd("call lodeMoreNewsChannels ");
                 if(newsChannelTableArrayList==null){
+                    LogUtils.logd("call lodeMoreNewsChannels newsChannelTableArrayList==null");
                     List<String> channelName = Arrays.asList(AppApplication.getAppContext().getResources().getStringArray(R.array.news_channel_name));
                     List<String> channelId = Arrays.asList(AppApplication.getAppContext().getResources().getStringArray(R.array.news_channel_id));
                     newsChannelTableArrayList = new ArrayList<NewsChannelTable>();
@@ -63,5 +66,19 @@ public class NewsChannelModel implements NewsChannelCtontract.Model {
                 }
             }
         }).compose(RxSchedulers.<List<NewsChannelTable>>io_main());
+    }
+
+    @Override
+    public Observable<String> updateDb(final ArrayList<NewsChannelTable> mineChannelTableList, final ArrayList<NewsChannelTable> moreChannelTableList) {
+        return Observable.create(new Observable.OnSubscribe<String>(){
+
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                ACache.get(AppApplication.getAppContext()).put(AppConstant.CHANNEL_MINE,mineChannelTableList);
+                ACache.get(AppApplication.getAppContext()).put(AppConstant.CHANNEL_MORE,moreChannelTableList);
+                subscriber.onNext("");
+                subscriber.onCompleted();
+            }
+        }).compose(RxSchedulers.<String>io_main());
     }
 }

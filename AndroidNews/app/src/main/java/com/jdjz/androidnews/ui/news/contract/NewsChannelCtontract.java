@@ -5,6 +5,7 @@ import com.jdjz.common.base.BaseModel;
 import com.jdjz.common.base.BasePresenter;
 import com.jdjz.common.base.BaseView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
@@ -16,14 +17,17 @@ public interface NewsChannelCtontract {
     interface Model extends BaseModel{
         Observable<List<NewsChannelTable>>  lodeMineNewsChannels();
         Observable<List<NewsChannelTable>> lodeMoreNewsChannels();
+        Observable<String> updateDb(ArrayList<NewsChannelTable> mineChannelTableList,ArrayList<NewsChannelTable> moreChannelTableList);
     }
 
     interface View extends BaseView {
         void returnMineNewsChannels(List<NewsChannelTable> newsChannelsMine);
-        void returnMoreNewsChannels(List<NewsChannelTable> newsChannelsMine);
+        void returnMoreNewsChannels(List<NewsChannelTable> newsChannelsMore);
     }
 
     abstract static class Presenter extends BasePresenter<View,Model>{
         public abstract void loadChannelsRequest();
+        public abstract void onItemAddOrRemove(ArrayList<NewsChannelTable>mineChannelTableList,
+                                               ArrayList<NewsChannelTable>moreChannelTableList);
     }
 }

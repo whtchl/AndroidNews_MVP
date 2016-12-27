@@ -30,7 +30,7 @@ public class NewsListModel implements NewsListContract.Model {
                     public Observable<NewsSummary> call(Map<String, List<NewsSummary>> stringListMap) {
                         if(id.endsWith(ApiConstants.HOUSE_ID)){
                             // 房产实际上针对地区的它的id与返回key不同
-                            return Observable.from(stringListMap.get("宁波"));
+                            return Observable.from(stringListMap.get("北京"));
                         }
                         return  Observable.from(stringListMap.get(id));
                     }

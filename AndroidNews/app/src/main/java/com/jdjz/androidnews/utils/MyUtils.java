@@ -14,7 +14,7 @@ public class MyUtils {
     public static void dynamicSetTabLayoutMode(TabLayout tabLayout){
         int tabWidth = calculateTabWidth(tabLayout);
         int screenWidth = getScreenWith();
-        if(screenWidth<=screenWidth){
+        if(tabWidth<=screenWidth){
             tabLayout.setTabMode(TabLayout.MODE_FIXED);
         }else{
             tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);

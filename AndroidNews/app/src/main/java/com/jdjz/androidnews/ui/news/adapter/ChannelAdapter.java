@@ -8,6 +8,7 @@ import com.aspsine.irecyclerview.universaladapter.ViewHolderHelper;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.CommonRecycleViewAdapter;
 import com.jdjz.androidnews.R;
 import com.jdjz.androidnews.bean.NewsChannelTable;
+import com.jdjz.common.commonwidget.OnNoDoubleClickListener;
 
 /**
  * Created by tchl on 2016-12-23.
@@ -22,6 +23,20 @@ public class ChannelAdapter extends CommonRecycleViewAdapter<NewsChannelTable>{
         }else{
             helper.setTextColor(R.id.news_channel_tv, ContextCompat.getColor(mContext,R.color.gray_deep));
         }
+        handleOnClick(helper,newsChannelTable);
+    }
+
+    private void handleOnClick(final ViewHolderHelper helper, final NewsChannelTable newsChannelTable) {
+        if(mOnItemClickListener != null){
+            helper.itemView.setOnClickListener(new OnNoDoubleClickListener() {
+                @Override
+                protected void onNoDoubleClick(View v) {
+                    if(!newsChannelTable.getNewsChannelFixed()){
+                        mOnItemClickListener.onItemClick(v,helper.getLayoutPosition());
+                    }
+                }
+            });
+        }
     }
 
     public ChannelAdapter(Context context, int layoutId) {
@@ -31,7 +46,8 @@ public class ChannelAdapter extends CommonRecycleViewAdapter<NewsChannelTable>{
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         mOnItemClickListener = onItemClickListener;
     }
-    public interface OnItemClickListener{
+
+    public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
 }

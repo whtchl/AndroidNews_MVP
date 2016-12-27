@@ -21,14 +21,14 @@ public class NewsMainPresenter extends  NewsMainContract.Presenter{
         super.onStart();
         LogUtils.logd("NewsMainPresenter  onStart");
         //监听新闻频道变化刷新
-/*        mRxManager.on(AppConstant.NEWS_CHANNEL_CHANGED, new Action1<List<NewsChannelTable>>() {
+        mRxManager.on(AppConstant.NEWS_CHANNEL_CHANGED, new Action1<List<NewsChannelTable>>() {
            @Override
             public void call(List<NewsChannelTable> newsChannelTables){
                if (newsChannelTables != null){
                    mView.returnMineNewsChannels(newsChannelTables);
                }
            }
-        });*/
+        });
     }
 
     /**

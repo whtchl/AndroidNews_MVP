@@ -1,10 +1,12 @@
 package com.jdjz.androidnews.ui.news.presenter;
 
+import com.jdjz.androidnews.app.AppConstant;
 import com.jdjz.androidnews.bean.NewsChannelTable;
 import com.jdjz.androidnews.ui.news.contract.NewsChannelCtontract;
 import com.jdjz.common.baserx.RxSubscriber;
 import com.jdjz.common.commonutils.LogUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,4 +41,24 @@ public class NewsChannelPresenter extends NewsChannelCtontract.Presenter {
             }
         }));
     }
+
+    @Override
+    public void onItemAddOrRemove(final  ArrayList<NewsChannelTable> mineChannelTableList, final ArrayList<NewsChannelTable> moreChannelTableList) {
+        mRxManager.add(mModel.updateDb(mineChannelTableList,moreChannelTableList)
+        .subscribe(new RxSubscriber<String>(mContext,false){
+
+            @Override
+            protected void _onNext(String s) {
+                mRxManager.post(AppConstant.NEWS_CHANNEL_CHANGED,mineChannelTableList);
+                //mRxManager.post(AppConstant.NEWS_CHANNEL_CHANGED,moreChannelTableList);
+            }
+
+            @Override
+            protected void _onError(String t) {
+
+            }
+        }));
+    }
+
+
 }
