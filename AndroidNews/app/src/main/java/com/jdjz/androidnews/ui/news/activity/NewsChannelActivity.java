@@ -98,21 +98,36 @@ public class NewsChannelActivity extends BaseActivity<NewsChannelPresenter,NewsC
 
     @Override
     public void returnMineNewsChannels(List<NewsChannelTable> newsChannelsMine) {
+        LogUtils.logd("returnMineNewsChannels");
         channelAdapterMine = new ChannelAdapter(mContext,R.layout.item_news_channel);
         newsChannelMineRv.setLayoutManager(new GridLayoutManager(this,4, LinearLayout.VERTICAL,false));
-        newsChannelMoreRv.setItemAnimator(new DefaultItemAnimator());
+        newsChannelMineRv.setItemAnimator(new DefaultItemAnimator());
         newsChannelMineRv.setAdapter(channelAdapterMine);
-        newsChannelMoreRv.setItemAnimator(new DefaultItemAnimator());
+        newsChannelMineRv.setItemAnimator(new DefaultItemAnimator());
         channelAdapterMine.replaceAll(newsChannelsMine);
+
+        channelAdapterMine.setOnItemClickListener(new ChannelAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                NewsChannelTable newsChannel = channelAdapterMine.get(position);
+                channelAdapterMore.add(newsChannel);
+                channelAdapterMine.removeAt(position);
+                mPresenter.onItemAddOrRemove((ArrayList<NewsChannelTable>) channelAdapterMine.getAll(), (ArrayList<NewsChannelTable>)channelAdapterMore.getAll());
+
+            }
+        });
+
     }
 
     @Override
-    public void returnMoreNewsChannels(List<NewsChannelTable> newsChannelsMine){
+    public void returnMoreNewsChannels(List<NewsChannelTable> newsChannelsMore){
         LogUtils.logd("returnMoreNewsChannels");
         channelAdapterMore = new ChannelAdapter(mContext,R.layout.item_news_channel);
-        newsChannelMoreRv.setLayoutManager(new GridLayoutManager(this,4, LinearLayoutManager.VERTICAL,false));
+        if(channelAdapterMore == null){LogUtils.logd("channelAdapterMore == null");}
+        newsChannelMoreRv.setLayoutManager(new GridLayoutManager(this, 4, LinearLayoutManager.VERTICAL, false));
+        newsChannelMoreRv.setItemAnimator(new DefaultItemAnimator());
         newsChannelMoreRv.setAdapter(channelAdapterMore);
-        channelAdapterMore.replaceAll(newsChannelsMine);
+        channelAdapterMore.replaceAll(newsChannelsMore);
         channelAdapterMore.setOnItemClickListener(new ChannelAdapter.OnItemClickListener(){
 
             @Override

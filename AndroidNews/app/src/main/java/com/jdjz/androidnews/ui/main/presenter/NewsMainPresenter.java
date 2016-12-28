@@ -53,8 +53,6 @@ public class NewsMainPresenter extends  NewsMainContract.Presenter{
 
             }
         }));
-
     }
-
 }
 

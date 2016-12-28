@@ -4,6 +4,7 @@ import com.jdjz.androidnews.R;
 import com.jdjz.androidnews.api.ApiConstants;
 import com.jdjz.androidnews.app.AppApplication;
 import com.jdjz.androidnews.bean.NewsChannelTable;
+import com.jdjz.common.commonutils.LogUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,8 +39,9 @@ public class NewsChannelTableManager {
         ArrayList<NewsChannelTable> newsChannelTables = new ArrayList<>();
         for(int i=0; i<channelName.size();i++){
             NewsChannelTable entity = new NewsChannelTable(channelName.get(i),channelId.get(i),
-                    ApiConstants.getType(channelId.get(i)),i<=5,i,false);
+                    ApiConstants.getType(channelId.get(i)),i<=5,i,true);
             newsChannelTables.add(entity);
+            LogUtils.logd("gray or gray deep:"+entity.getNewsChannelFixed());
         }
         return newsChannelTables;
     }

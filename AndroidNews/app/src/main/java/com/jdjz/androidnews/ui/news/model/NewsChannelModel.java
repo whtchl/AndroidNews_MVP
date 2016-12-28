@@ -33,7 +33,7 @@ public class NewsChannelModel implements NewsChannelCtontract.Model {
                 ArrayList<NewsChannelTable> newsChannelTableList = (ArrayList<NewsChannelTable>) ACache.get(AppApplication.getAppContext())
                         .getAsObject(AppConstant.CHANNEL_MINE);
                 if(newsChannelTableList == null){
-                    LogUtils.logd("newsChannelTableList is null");
+                    LogUtils.logd("newsChannelTableList is null------");
                     newsChannelTableList = (ArrayList<NewsChannelTable>) NewsChannelTableManager.loadNewsChannelsStatic();
                 }
                 subscriber.onNext(newsChannelTableList);
@@ -50,7 +50,6 @@ public class NewsChannelModel implements NewsChannelCtontract.Model {
             public void call(Subscriber<? super List<NewsChannelTable>> subscriber) {
                 ArrayList<NewsChannelTable> newsChannelTableArrayList = (ArrayList<NewsChannelTable>) ACache.get(AppApplication.getAppContext())
                         .getAsObject(AppConstant.CHANNEL_MORE);
-                LogUtils.logd("call lodeMoreNewsChannels ");
                 if(newsChannelTableArrayList==null){
                     LogUtils.logd("call lodeMoreNewsChannels newsChannelTableArrayList==null");
                     List<String> channelName = Arrays.asList(AppApplication.getAppContext().getResources().getStringArray(R.array.news_channel_name));
@@ -59,11 +58,10 @@ public class NewsChannelModel implements NewsChannelCtontract.Model {
                     for(int i=0; i<channelName.size();i++){
                         NewsChannelTable entity = new NewsChannelTable(channelName.get(i),channelId.get(i), ApiConstants.getType(channelId.get(i)),i<=5,i,false);
                         newsChannelTableArrayList.add(entity);
-
                     }
-                    subscriber.onNext(newsChannelTableArrayList);
-                    subscriber.onCompleted();
                 }
+                subscriber.onNext(newsChannelTableArrayList);
+                subscriber.onCompleted();
             }
         }).compose(RxSchedulers.<List<NewsChannelTable>>io_main());
     }

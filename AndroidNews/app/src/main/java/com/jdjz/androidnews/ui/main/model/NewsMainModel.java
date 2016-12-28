@@ -7,6 +7,7 @@ import com.jdjz.androidnews.db.NewsChannelTableManager;
 import com.jdjz.androidnews.ui.main.contract.NewsMainContract;
 import com.jdjz.common.baserx.RxSchedulers;
 import com.jdjz.common.commonutils.ACache;
+import com.jdjz.common.commonutils.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ public class NewsMainModel implements NewsMainContract.Model{
             public void call(Subscriber<? super List<NewsChannelTable>> subscriber){
                 ArrayList<NewsChannelTable> newsChannelTableList = (ArrayList<NewsChannelTable>) ACache.get(AppApplication.getAppContext()).getAsObject(AppConstant.CHANNEL_MINE);
                 if(newsChannelTableList == null){
+                    LogUtils.logd("lodeMineNewsChannels-----");
                     newsChannelTableList = (ArrayList<NewsChannelTable>) NewsChannelTableManager.loadNewsChannelsStatic();
                     ACache.get(AppApplication.getAppContext()).put(AppConstant.CHANNEL_MINE,newsChannelTableList);
                 }
