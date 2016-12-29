@@ -108,7 +108,7 @@ public class NewsFrament extends BaseFragment<NewsListPresenter,NewsListModel> i
     @Override
     public void showLoading(String title){
         if(newListAdapter.getPageBean().isRefresh()){
-            //loadedTip.setLoadingTip(LoadingTip)
+            loadedTip.setLoadingTip(LoadingTip.LoadStatus.loading);
             LogUtils.logd("show load tip");
         }
     }
