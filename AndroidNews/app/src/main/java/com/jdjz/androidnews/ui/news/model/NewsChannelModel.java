@@ -67,6 +67,18 @@ public class NewsChannelModel implements NewsChannelCtontract.Model {
     }
 
     @Override
+    public Observable<String> swapDb(final ArrayList<NewsChannelTable> newsChannelTableList, int fromPosition, int toPosition) {
+        return Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                ACache.get(AppApplication.getAppContext()).put(AppConstant.CHANNEL_MINE,newsChannelTableList);
+                subscriber.onNext("");
+                subscriber.onCompleted();
+            }
+        }).compose(RxSchedulers.<String>io_main());
+    }
+
+    @Override
     public Observable<String> updateDb(final ArrayList<NewsChannelTable> mineChannelTableList, final ArrayList<NewsChannelTable> moreChannelTableList) {
         return Observable.create(new Observable.OnSubscribe<String>(){
 

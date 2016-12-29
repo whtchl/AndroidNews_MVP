@@ -43,6 +43,22 @@ public class NewsChannelPresenter extends NewsChannelCtontract.Presenter {
     }
 
     @Override
+    public void onItemSwap(final ArrayList<NewsChannelTable> newsChannelTableList, int fromPosition, int toPosition) {
+        mRxManager.add(mModel.swapDb(newsChannelTableList,fromPosition,toPosition)
+        .subscribe(new RxSubscriber<String>(mContext,false) {
+            @Override
+            protected void _onNext(String s) {
+                mRxManager.post(AppConstant.NEWS_CHANNEL_CHANGED,newsChannelTableList);
+            }
+
+            @Override
+            protected void _onError(String t) {
+
+            }
+        }));
+    }
+
+    @Override
     public void onItemAddOrRemove(final  ArrayList<NewsChannelTable> mineChannelTableList, final ArrayList<NewsChannelTable> moreChannelTableList) {
         mRxManager.add(mModel.updateDb(mineChannelTableList,moreChannelTableList)
         .subscribe(new RxSubscriber<String>(mContext,false){

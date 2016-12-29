@@ -21,6 +21,9 @@ public class ItemDragHelperCallback extends ItemTouchHelper.Callback {
         mOnItemMoveListener = onItemMoveListener;
     }
 
+    public void setLongPressEnabled(boolean longPressEnabled){
+        mIsLongPressEnabled = longPressEnabled;
+    }
     public boolean isLongPressDragEnabled(){return mIsLongPressEnabled;}
 
     private int setDragFlags(RecyclerView recyclerView){
@@ -48,11 +51,17 @@ public class ItemDragHelperCallback extends ItemTouchHelper.Callback {
 
     @Override
     public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-        return false;
+        return !isDifferentItemViewType(viewHolder, target) &&
+                mOnItemMoveListener.onItemMove(viewHolder.getAdapterPosition(), target.getAdapterPosition());
     }
 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
 
+    }
+
+    @Override
+    public void clearView(RecyclerView recyclerView,RecyclerView.ViewHolder viewHolder){
+        super.clearView(recyclerView,viewHolder);
     }
 }

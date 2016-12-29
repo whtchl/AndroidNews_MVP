@@ -9,16 +9,20 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.jdjz.androidnews.R;
+import com.jdjz.androidnews.app.AppConstant;
 import com.jdjz.androidnews.bean.NewsChannelTable;
 import com.jdjz.androidnews.ui.news.adapter.ChannelAdapter;
 import com.jdjz.androidnews.ui.news.adapter.ChannelAdapter.OnItemClickListener;
 import com.jdjz.androidnews.ui.news.contract.NewsChannelCtontract;
+import com.jdjz.androidnews.ui.news.event.ChannelItemMoveEvent;
 import com.jdjz.androidnews.ui.news.model.NewsChannelModel;
 import com.jdjz.androidnews.ui.news.presenter.NewsChannelPresenter;
+import com.jdjz.androidnews.widget.ItemDragHelperCallback;
 import com.jdjz.common.base.BaseActivity;
 import com.jdjz.common.commonutils.LogUtils;
 
@@ -27,6 +31,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import rx.functions.Action1;
 
 /**
  * Created by tchl on 2016-12-22.
@@ -49,6 +54,20 @@ public class NewsChannelActivity extends BaseActivity<NewsChannelPresenter,NewsC
     @Override
     public void initPresenter() {
         mPresenter.setVM(this, mModel);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        mRxManager.on(AppConstant.CHANNEL_SWAP, new Action1<ChannelItemMoveEvent>() {
+
+            @Override
+            public void call(ChannelItemMoveEvent channelItemMoveEvent) {
+                if(channelItemMoveEvent !=null){
+                    mPresenter.onItemSwap((ArrayList<NewsChannelTable>) channelAdapterMine.getAll(),channelItemMoveEvent.getFromPosition(),channelItemMoveEvent.getToPosition());
+                }
+            }
+        });
     }
 
     @Override
@@ -116,6 +135,11 @@ public class NewsChannelActivity extends BaseActivity<NewsChannelPresenter,NewsC
 
             }
         });
+
+        ItemDragHelperCallback itemDragHelperCallback = new ItemDragHelperCallback(channelAdapterMine);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemDragHelperCallback);
+        itemTouchHelper.attachToRecyclerView(newsChannelMineRv);
+        channelAdapterMine.setItemDragHelperCallback(itemDragHelperCallback);
 
     }
 

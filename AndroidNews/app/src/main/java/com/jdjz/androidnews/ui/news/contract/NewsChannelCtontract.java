@@ -17,6 +17,7 @@ public interface NewsChannelCtontract {
     interface Model extends BaseModel{
         Observable<List<NewsChannelTable>>  lodeMineNewsChannels();
         Observable<List<NewsChannelTable>> lodeMoreNewsChannels();
+        Observable<String> swapDb(ArrayList<NewsChannelTable> newsChannelTableList,int fromPosition, int toPosition);
         Observable<String> updateDb(ArrayList<NewsChannelTable> mineChannelTableList,ArrayList<NewsChannelTable> moreChannelTableList);
     }
 
@@ -27,6 +28,7 @@ public interface NewsChannelCtontract {
 
     abstract static class Presenter extends BasePresenter<View,Model>{
         public abstract void loadChannelsRequest();
+        public abstract void onItemSwap(ArrayList<NewsChannelTable> newsChannelTableList, int fromPosition, final int toPosition);
         public abstract void onItemAddOrRemove(ArrayList<NewsChannelTable>mineChannelTableList,
                                                ArrayList<NewsChannelTable>moreChannelTableList);
     }
