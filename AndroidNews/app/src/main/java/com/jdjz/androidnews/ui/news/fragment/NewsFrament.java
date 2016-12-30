@@ -20,6 +20,7 @@ import com.jdjz.androidnews.ui.news.model.NewsListModel;
 import com.jdjz.androidnews.ui.news.presenter.NewsListPresenter;
 import com.jdjz.common.base.BaseFragment;
 import com.jdjz.common.commonutils.LogUtils;
+import com.jdjz.common.commonwidget.LoadingTip;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,9 @@ import rx.Observable;
 public class NewsFrament extends BaseFragment<NewsListPresenter,NewsListModel> implements NewsListContract.View,OnRefreshListener,OnLoadMoreListener {
     //@Bind(R.id.irc)
     IRecyclerView irc;
+
+    //@Bind(R.id.loadedTip)
+    LoadingTip loadedTip;
 
     private NewListAdapter newListAdapter;
     private List<NewsSummary> datas = new ArrayList<>();
@@ -54,6 +58,7 @@ public class NewsFrament extends BaseFragment<NewsListPresenter,NewsListModel> i
     @Override
     protected void initView() {
         irc =(IRecyclerView) rootView.findViewById(R.id.irc);
+        loadedTip = (LoadingTip) rootView.findViewById(R.id.loadedTip);
         if(getArguments()!=null){
             mNewsId  =getArguments().getString(AppConstant.NEWS_ID);
             mNewsType = getArguments().getString(AppConstant.NEWS_TYPE);
@@ -116,12 +121,18 @@ public class NewsFrament extends BaseFragment<NewsListPresenter,NewsListModel> i
 
     @Override
     public void stopLoading() {
-
+         loadedTip.setLoadingTip(LoadingTip.LoadStatus.finish);
     }
 
     @Override
     public void showErrorTip(String msg) {
-
+        if( newListAdapter.getPageBean().isRefresh()) {
+            loadedTip.setLoadingTip(LoadingTip.LoadStatus.error);
+            loadedTip.setTips(msg);
+            irc.setRefreshing(false);
+        }else{
+            irc.setLoadMoreStatus(LoadMoreFooterView.Status.ERROR);
+        }
     }
 
     @Override
