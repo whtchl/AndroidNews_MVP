@@ -23,6 +23,7 @@ import com.jdjz.androidnews.R;
 import com.jdjz.androidnews.app.AppConstant;
 import com.jdjz.androidnews.bean.TabEntity;
 import com.jdjz.androidnews.ui.main.fragment.NewsMainFragment;
+import com.jdjz.androidnews.ui.main.fragment.VideoMainFragment;
 import com.jdjz.common.base.BaseActivity;
 import com.jdjz.common.commonutils.LogUtils;
 
@@ -48,7 +49,7 @@ public class MainActivity extends BaseActivity {
 
     private NewsMainFragment newsMainFragment;
     private SimpleCardFragment newsMainFragment2;
-    private SimpleCardFragment newsMainFragment3;
+    private VideoMainFragment videoMainFragment;
     private SimpleCardFragment newsMainFragment4;
 
     @Override
@@ -148,7 +149,7 @@ public class MainActivity extends BaseActivity {
         if(savedInstanceState != null){
             newsMainFragment = (NewsMainFragment)getSupportFragmentManager().findFragmentByTag("NewsMainFragment");
             newsMainFragment2 = (SimpleCardFragment)getSupportFragmentManager().findFragmentByTag("newsMainFragment2");
-            newsMainFragment3 = (SimpleCardFragment)getSupportFragmentManager().findFragmentByTag("newsMainFragment3");
+            videoMainFragment = (VideoMainFragment)getSupportFragmentManager().findFragmentByTag("VideoMainFragment");
             newsMainFragment4 = (SimpleCardFragment)getSupportFragmentManager().findFragmentByTag("newsMainFragment4");
 
             currentTabPosition = savedInstanceState.getInt(AppConstant.HOME_CURRENT_TAB_POSITION);
@@ -156,11 +157,11 @@ public class MainActivity extends BaseActivity {
         }else{
             newsMainFragment  =  new NewsMainFragment();
             newsMainFragment2 =  SimpleCardFragment.getInstance( "2");
-            newsMainFragment3 =  SimpleCardFragment.getInstance( "3");
+            videoMainFragment =  new VideoMainFragment();
             newsMainFragment4 =  SimpleCardFragment.getInstance( "4");
             transaction.add(R.id.fl_body,newsMainFragment,"newsMainFragment");
             transaction.add(R.id.fl_body,newsMainFragment2,"newsMainFragment2");
-            transaction.add(R.id.fl_body,newsMainFragment3,"newsMainFragment3");
+            transaction.add(R.id.fl_body,videoMainFragment,"videoMainFragment");
             transaction.add(R.id.fl_body,newsMainFragment4,"newsMainFragment4");
         }
         transaction.commit();
@@ -180,28 +181,28 @@ public class MainActivity extends BaseActivity {
             case 0:
                 transaction.show(newsMainFragment);
                 transaction.hide(newsMainFragment2);
-                transaction.hide(newsMainFragment3);
+                transaction.hide(videoMainFragment);
                 transaction.hide(newsMainFragment4);
                 transaction.commitAllowingStateLoss();
                 break;
             case 1:
                 transaction.hide(newsMainFragment);
                 transaction.show(newsMainFragment2);
-                transaction.hide(newsMainFragment3);
+                transaction.hide(videoMainFragment);
                 transaction.hide(newsMainFragment4);
                 transaction.commitAllowingStateLoss();
                 break;
             case 2:
                 transaction.hide(newsMainFragment);
                 transaction.hide(newsMainFragment2);
-                transaction.show(newsMainFragment3);
+                transaction.show(videoMainFragment);
                 transaction.hide(newsMainFragment4);
                 transaction.commitAllowingStateLoss();
                 break;
             case 3:
                 transaction.show(newsMainFragment);
                 transaction.hide(newsMainFragment2);
-                transaction.hide(newsMainFragment3);
+                transaction.hide(videoMainFragment);
                 transaction.show(newsMainFragment4);
                 transaction.commitAllowingStateLoss();
                 break;

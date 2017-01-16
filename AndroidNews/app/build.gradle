@@ -16,7 +16,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        debug{
+        debug {
             buildConfigField "boolean", "LOG_DEBUG", "true"
         }
     }
@@ -40,4 +40,5 @@ dependencies {
     compile project(':irecyclerview')
     compile project(path: ':irecyclerview')
     compile project(path: ':irecyclerview')
+    compile 'com.android.support:support-v4:23.4.0'
 }

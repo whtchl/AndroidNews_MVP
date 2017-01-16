@@ -19,4 +19,7 @@
     <string name="more_channel">更多频道</string>
     <string name="channel_manage">频道管理</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
