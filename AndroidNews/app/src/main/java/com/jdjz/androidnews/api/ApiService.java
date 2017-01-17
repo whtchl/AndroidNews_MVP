@@ -3,6 +3,7 @@ package com.jdjz.androidnews.api;
 import com.jdjz.androidnews.bean.NewsDetail;
 import com.jdjz.androidnews.bean.NewsSummary;
 import com.jdjz.androidnews.bean.User;
+import com.jdjz.androidnews.bean.VideoData;
 import com.jdjz.common.basebean.BaseRespose;
 
 import java.util.List;
@@ -51,7 +52,7 @@ public interface ApiService {
             @Header("Cache-Control") String cacheControl,
             @Path("size") int size,
             @Path("page") int page
-    );
+    );*/
 
     @GET("nc/video/list/{type}/n/{startPage}-10.html")
     Observable<Map<String,List<VideoData>>>getVideoList(
@@ -59,7 +60,7 @@ public interface ApiService {
         @Path("type") String type,
         @Path("startPage") int startPage
         );
-*/
+
 
 
 

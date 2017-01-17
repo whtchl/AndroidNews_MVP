@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    style = "@style/news_summary_card_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/rl_root">
+        <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+            android:id="@+id/videoplayer"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"/>
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_below="@+id/videoplayer"
+            android:layout_margin="4dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp" />
+        <TextView
+            android:id="@+id/tv_from"
+            android:textColor="@color/gray_deep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            tools:text="横渡长江"
+            android:gravity="center"
+            android:/>
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>
