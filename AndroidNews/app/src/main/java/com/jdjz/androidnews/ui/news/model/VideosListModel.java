@@ -38,7 +38,7 @@ public class VideosListModel implements VideosListContract.Model {
                 .toSortedList(new Func2<VideoData, VideoData, Integer>() {
                     @Override
                     public Integer call(VideoData videoData, VideoData videoData2) {
-                        return videoData2.getPtime().compareTo(videoData.getPtime());;
+                        return videoData2.getPtime().compareTo(videoData.getPtime());
                     }
                 }).compose(RxSchedulers.<List<VideoData>>io_main());
     }

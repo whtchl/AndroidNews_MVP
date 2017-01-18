@@ -22,6 +22,6 @@ public interface VideosListContract {
     }
 
     abstract static class Presenter extends BasePresenter<View,Model>{
-        public abstract void getVidoesListDataRequest(String type,int startPage);
+        public abstract void getVideosListDataRequest(String type,int startPage);
     }
 }

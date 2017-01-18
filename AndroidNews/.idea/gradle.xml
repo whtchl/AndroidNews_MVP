@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/irecyclerview" />
+            <option value="$PROJECT_DIR$/jcvideoplayer" />
           </set>
         </option>
         <option name="myModules">
@@ -19,6 +20,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/irecyclerview" />
+            <option value="$PROJECT_DIR$/jcvideoplayer" />
           </set>
         </option>
       </GradleProjectSettings>

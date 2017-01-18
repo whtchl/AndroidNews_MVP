@@ -95,6 +95,7 @@ public class NewsFrament extends BaseFragment<NewsListPresenter,NewsListModel> i
 
     @Override
     public void onRefresh(){
+        LogUtils.logd("NewsFragment onRefresh");
         newListAdapter.getPageBean().setRefresh(true);
         mStartPage=0;
         //发起请求

@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class VideoListPresenter extends VideosListContract.Presenter {
     @Override
-    public void getVidoesListDataRequest(String type, int startPage) {
+    public void getVideosListDataRequest(String type, int startPage) {
         mRxManager.add(mModel.getVideosListData(type,startPage).subscribe(new RxSubscriber<List<VideoData>>(mContext,false) {
             @Override
             public void onStart(){
