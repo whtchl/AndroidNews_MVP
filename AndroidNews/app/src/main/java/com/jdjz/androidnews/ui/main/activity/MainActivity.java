@@ -22,6 +22,7 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.jdjz.androidnews.R;
 import com.jdjz.androidnews.app.AppConstant;
 import com.jdjz.androidnews.bean.TabEntity;
+import com.jdjz.androidnews.ui.main.fragment.CareMainFragment;
 import com.jdjz.androidnews.ui.main.fragment.NewsMainFragment;
 import com.jdjz.androidnews.ui.main.fragment.VideoMainFragment;
 import com.jdjz.common.base.BaseActivity;
@@ -50,7 +51,7 @@ public class MainActivity extends BaseActivity {
     private NewsMainFragment newsMainFragment;
     private SimpleCardFragment newsMainFragment2;
     private VideoMainFragment videoMainFragment;
-    private SimpleCardFragment newsMainFragment4;
+    private CareMainFragment careMainFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -150,7 +151,7 @@ public class MainActivity extends BaseActivity {
             newsMainFragment = (NewsMainFragment)getSupportFragmentManager().findFragmentByTag("NewsMainFragment");
             newsMainFragment2 = (SimpleCardFragment)getSupportFragmentManager().findFragmentByTag("newsMainFragment2");
             videoMainFragment = (VideoMainFragment)getSupportFragmentManager().findFragmentByTag("VideoMainFragment");
-            newsMainFragment4 = (SimpleCardFragment)getSupportFragmentManager().findFragmentByTag("newsMainFragment4");
+            careMainFragment = (CareMainFragment) getSupportFragmentManager().findFragmentByTag("careMainFragment");
 
             currentTabPosition = savedInstanceState.getInt(AppConstant.HOME_CURRENT_TAB_POSITION);
 
@@ -158,11 +159,13 @@ public class MainActivity extends BaseActivity {
             newsMainFragment  =  new NewsMainFragment();
             newsMainFragment2 =  SimpleCardFragment.getInstance( "2");
             videoMainFragment =  new VideoMainFragment();
-            newsMainFragment4 =  SimpleCardFragment.getInstance( "4");
+            careMainFragment = new CareMainFragment();
+            //newsMainFragment4 =  SimpleCardFragment.getInstance( "4");
             transaction.add(R.id.fl_body,newsMainFragment,"newsMainFragment");
             transaction.add(R.id.fl_body,newsMainFragment2,"newsMainFragment2");
             transaction.add(R.id.fl_body,videoMainFragment,"videoMainFragment");
-            transaction.add(R.id.fl_body,newsMainFragment4,"newsMainFragment4");
+            transaction.add(R.id.fl_body,careMainFragment,"careMainFragment");
+            //transaction.add(R.id.fl_body,newsMainFragment4,"newsMainFragment4");
         }
         transaction.commit();
         SwitchTo(currentTabPosition);
@@ -182,28 +185,32 @@ public class MainActivity extends BaseActivity {
                 transaction.show(newsMainFragment);
                 transaction.hide(newsMainFragment2);
                 transaction.hide(videoMainFragment);
-                transaction.hide(newsMainFragment4);
+                transaction.hide(careMainFragment);
+                //transaction.hide(newsMainFragment4);
                 transaction.commitAllowingStateLoss();
                 break;
             case 1:
                 transaction.hide(newsMainFragment);
                 transaction.show(newsMainFragment2);
                 transaction.hide(videoMainFragment);
-                transaction.hide(newsMainFragment4);
+                transaction.hide(careMainFragment);
+                //transaction.hide(newsMainFragment4);
                 transaction.commitAllowingStateLoss();
                 break;
             case 2:
                 transaction.hide(newsMainFragment);
                 transaction.hide(newsMainFragment2);
                 transaction.show(videoMainFragment);
-                transaction.hide(newsMainFragment4);
+                transaction.hide(careMainFragment);
+                //transaction.hide(newsMainFragment4);
                 transaction.commitAllowingStateLoss();
                 break;
             case 3:
                 transaction.show(newsMainFragment);
                 transaction.hide(newsMainFragment2);
                 transaction.hide(videoMainFragment);
-                transaction.show(newsMainFragment4);
+                transaction.show(careMainFragment);
+                //transaction.show(newsMainFragment4);
                 transaction.commitAllowingStateLoss();
                 break;
             default:

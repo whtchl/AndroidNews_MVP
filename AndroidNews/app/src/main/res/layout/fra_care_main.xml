@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.jaydenxiao.common.commonwidget.NormalTitleBar
+        android:id="@+id/ntb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:id="@+id/ll_friend_zone"
+        android:layout_width="match_parent"
+        android:background="@drawable/selector_gray_deepgray"
+        android:layout_marginTop="20dp"
+        android:padding="8dp"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/zone"
+            android:layout_marginLeft="15dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+        <TextView
+            android:text="好友动态"
+            tools:text="朋友动态"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/ll_daynight_toggle"
+        android:background="@drawable/selector_gray_deepgray"
+        android:layout_marginTop="20dp"
+        android:padding="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/togglebutton"
+            android:layout_marginLeft="15dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="日夜模式切换"
+            tools:text="日夜模式切换"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="8dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_daynight_about"
+        android:layout_width="match_parent"
+        android:background="@drawable/selector_gray_deepgray"
+        android:layout_marginTop="20dp"
+        android:padding="6dp"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="38dp"
+            android:src="@drawable/about"
+            android:layout_marginLeft="15dp"
+            android:layout_height="38dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:text="关于"
+            tools:text="关于"
+            android:paddingLeft="8dp"
+
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/iv_add"
+        android:layout_width="60dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/zone_friend_add"
+        android:layout_height="60dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_add"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="添加更多感兴趣的内容" />
+    </RelativeLayout>
+</LinearLayout>
