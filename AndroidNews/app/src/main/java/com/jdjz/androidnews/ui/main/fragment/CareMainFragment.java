@@ -8,7 +8,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.jdjz.androidnews.R;
+import com.jdjz.androidnews.ui.news.activity.AboutActivity;
 import com.jdjz.common.base.BaseFragment;
+import com.jdjz.common.commonwidget.NormalTitleBar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -26,6 +28,9 @@ public class CareMainFragment extends BaseFragment {
     LinearLayout llDaynightAbout;
     @Bind(R.id.iv_add)
     ImageView ivAdd;
+    @Bind(R.id.ntb)
+    NormalTitleBar ntb;
+
 
     @Override
     protected int getLayoutResource() {
@@ -35,15 +40,14 @@ public class CareMainFragment extends BaseFragment {
     @Override
     public void initPresenter() {
 
+
     }
 
     @Override
     protected void initView() {
-
+        ntb.setTvLeftVisiable(false);
+        ntb.setTitleText(getContext().getString(R.string.care_main_title));
     }
-
-
-
 
 
     @OnClick({R.id.ll_friend_zone, R.id.ll_daynight_toggle, R.id.ll_daynight_about, R.id.iv_add})
@@ -54,9 +58,12 @@ public class CareMainFragment extends BaseFragment {
             case R.id.ll_daynight_toggle:
                 break;
             case R.id.ll_daynight_about:
+                AboutActivity.startAction(this.getContext());
                 break;
             case R.id.iv_add:
                 break;
         }
     }
+
+
 }

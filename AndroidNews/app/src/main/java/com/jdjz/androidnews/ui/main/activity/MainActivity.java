@@ -41,11 +41,21 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.tab_layout)
     CommonTabLayout tabLayout;
     private static int tabLayoutHeight;
+/*
     private String[] mTitles = {"首页", "美女", "视频", "关注"};
     private int[] mIconUnselectIds = {
             R.mipmap.ic_home_normal, R.mipmap.ic_girl_normal, R.mipmap.ic_video_normal, R.mipmap.ic_care_normal};
     private int[] mIconSelectIds = {
             R.mipmap.ic_home_selected, R.mipmap.ic_girl_selected, R.mipmap.ic_video_selected, R.mipmap.ic_care_selected};
+*/
+
+
+    private String[] mTitles = {"首页",  "视频", "关注"};
+    private int[] mIconUnselectIds = {
+            R.mipmap.ic_home_normal,  R.mipmap.ic_video_normal, R.mipmap.ic_care_normal};
+    private int[] mIconSelectIds = {
+            R.mipmap.ic_home_selected, R.mipmap.ic_video_selected, R.mipmap.ic_care_selected};
+
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     private NewsMainFragment newsMainFragment;
@@ -189,25 +199,25 @@ public class MainActivity extends BaseActivity {
                 //transaction.hide(newsMainFragment4);
                 transaction.commitAllowingStateLoss();
                 break;
-            case 1:
+/*            case 1:
                 transaction.hide(newsMainFragment);
                 transaction.show(newsMainFragment2);
                 transaction.hide(videoMainFragment);
                 transaction.hide(careMainFragment);
                 //transaction.hide(newsMainFragment4);
                 transaction.commitAllowingStateLoss();
-                break;
-            case 2:
+                break;*/
+            case 1:
                 transaction.hide(newsMainFragment);
-                transaction.hide(newsMainFragment2);
+                //transaction.hide(newsMainFragment2);
                 transaction.show(videoMainFragment);
                 transaction.hide(careMainFragment);
                 //transaction.hide(newsMainFragment4);
                 transaction.commitAllowingStateLoss();
                 break;
-            case 3:
-                transaction.show(newsMainFragment);
-                transaction.hide(newsMainFragment2);
+            case 2:
+                transaction.hide(newsMainFragment);
+                //transaction.hide(newsMainFragment2);
                 transaction.hide(videoMainFragment);
                 transaction.show(careMainFragment);
                 //transaction.show(newsMainFragment4);
